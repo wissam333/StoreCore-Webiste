@@ -959,6 +959,44 @@
         flex-wrap: wrap;
       }
 
+      /* ─── CONTACT BUTTONS ──────────────────────────────────────────── */
+      .contact-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 52px;
+        padding: 0 28px;
+        border-radius: 14px;
+        background: var(--glass);
+        color: var(--text);
+        border: 1px solid var(--glass-border);
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.25s;
+        font-family: "Cairo", sans-serif !important;
+      }
+      .contact-link:hover {
+        background: var(--bg3);
+        border-color: rgba(var(--accent-rgb), 0.3);
+        transform: translateY(-2px);
+      }
+      .contact-link .cl-icon {
+        font-size: 1.1rem;
+      }
+      .contact-link-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #fff;
+        border: none;
+        box-shadow: 0 6px 30px rgba(var(--accent-rgb), 0.4);
+      }
+      .contact-link-primary:hover {
+        opacity: 0.9;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.5);
+      }
+
       /* ─── FOOTER ─────────────────────────────────────────────────── */
       footer {
         border-top: 1px solid var(--glass-border);
@@ -1083,7 +1121,7 @@
         <button class="nav-icon-btn" onclick="toggleLang()" title="Language">
           🌐
         </button>
-        <button class="nav-cta" id="navCta">تحميل المتجر</button>
+        <a class="nav-cta" href="mailto:wissam.n.najjom@gmail.com" id="navCta">📧 تواصل معي</a>
       </div>
     </nav>
 
@@ -1111,8 +1149,12 @@
           Desktop · Mobile · Offline-first · Dual Currency · P2P Sync
         </p>
         <div class="hero-actions">
-          <button class="btn-grad" id="heroCta1">⬇ تحميل للكمبيوتر</button>
-          <button class="btn-ghost" id="heroCta2">تحميل للجوال</button>
+          <a class="contact-link contact-link-primary" href="mailto:wissam.n.najjom@gmail.com" id="heroCta1">
+            <span class="cl-icon">📧</span> <span id="hcta1">wissam.n.najjom@gmail.com</span>
+          </a>
+          <a class="contact-link" href="tel:+963933446665" id="heroCta2">
+            <span class="cl-icon">📞</span> <span id="hcta2">+963 933 446 665</span>
+          </a>
         </div>
         <div class="hero-badges">
           <div class="hbadge">
@@ -1234,8 +1276,25 @@
       </div>
     </section>
 
+    <!-- ─── CONTACT CTA ─────────────────────────────────────────────── -->
+    <section class="cta-wrap reveal" style="padding: 5rem 2.5rem 7rem;">
+      <div class="cta-bg-orb"></div>
+      <div class="cta-mono" id="ctaMono">📬</div>
+      <h2 class="cta-h2" id="ctaTitle">تواصل معي</h2>
+      <p class="cta-sub" id="ctaSub">للاستفسار أو التعاون، أنا على بُعد رسالة أو مكالمة</p>
+      <p class="cta-sub-en" id="ctaSubEn">Questions? Collaboration? Let's connect.</p>
+      <div class="cta-btns">
+        <a class="contact-link contact-link-primary" href="mailto:wissam.n.najjom@gmail.com" id="ctaBtn1">
+          <span class="cl-icon">📧</span> <span id="ctaBtn1l">wissam.n.najjom@gmail.com</span>
+        </a>
+        <a class="contact-link" href="tel:+963933446665" id="ctaBtn2">
+          <span class="cl-icon">📞</span> <span id="ctaBtn2l">+963 933 446 665</span>
+        </a>
+      </div>
+    </section>
+
     <footer>
-      <div>StoreCore — نظام إدارة المتاجر © 2025</div>
+      <div>StoreOS — نظام إدارة المتاجر © 2026</div>
       <div>Built with Nuxt 3 · Electron · Capacitor · PeerJS</div>
     </footer>
 
@@ -1290,9 +1349,11 @@
         const bg = isDark ? "#08080c" : "#f4f4f8";
         const bg1 = isDark ? "#0e0e14" : "#ebebf0";
         const bg2 = isDark ? "#141420" : "#e0e0e8";
-        const text = isDark ? "#f2f2f8" : "#333";
-        const text2 = isDark ? "#9090a8" : "#333";
-        const border = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.5)";
+        const bg3 = isDark ? "#1c1c2a" : "#d4d4de";
+        const text = isDark ? "#f2f2f8" : "#222";
+        const text2 = isDark ? "#9090a8" : "#555";
+        const text3 = isDark ? "#4a4a60" : "#999";
+        const border = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.12)";
         const ac = hexToRgb(accent);
 
         g.fillStyle = bg;
@@ -1309,510 +1370,777 @@
         const mainX = isAr ? 0 : sideW;
         const mainW = W - sideW;
 
+        /* ── SIDEBAR ── */
         g.fillStyle = bg1;
         g.fillRect(sideX, 0, sideW, H);
 
         g.fillStyle = accent;
         g.fillRect(isAr ? sideX + sideW - 3 : sideX, 0, 3, H);
 
-        const avCx = isAr ? sideX + sideW - 36 : sideX + 36;
-        g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.15)`;
+        // Brand at top of sidebar
+        const brandMarkX = isAr ? sideX + sideW - 38 : sideX + 14;
+        g.fillStyle = `linear-gradient(135deg, ${accent}, ${accent2})`;
         g.beginPath();
-        g.arc(avCx, 46, 20, 0, Math.PI * 2);
+        g.roundRect(brandMarkX, 12, 34, 34, 9);
+        const bmGrd = g.createLinearGradient(brandMarkX, 12, brandMarkX + 34, 46);
+        bmGrd.addColorStop(0, accent);
+        bmGrd.addColorStop(1, accent2);
+        g.fillStyle = bmGrd;
+        g.beginPath();
+        g.roundRect(brandMarkX, 12, 34, 34, 9);
         g.fill();
-        g.fillStyle = accent;
-        g.font = "bold 16px Outfit, sans-serif";
+        g.fillStyle = "#fff";
+        g.font = "bold 15px Outfit";
         g.textAlign = "center";
-        g.fillText("M", avCx, 52);
+        g.fillText("OS", brandMarkX + 17, 34);
 
-        const userTxtX = isAr ? sideX + sideW - 68 : sideX + 68;
+        const brandTxtX = isAr ? sideX + sideW - 82 : sideX + 60;
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 17px Cairo, sans-serif";
+        g.fillText("StoreOS", brandTxtX, 36);
+
+        // Divider
+        g.fillStyle = border;
+        g.fillRect(sideX + 14, 56, sideW - 28, 1);
+
+        // User card
+        const ucY = 68;
+        const avSize = 34;
+        const avCx = isAr ? sideX + sideW - 34 : sideX + 34;
+        g.fillStyle = accent;
+        g.beginPath();
+        g.arc(avCx, ucY + 17, 17, 0, Math.PI * 2);
+        g.fill();
+        g.fillStyle = "#fff";
+        g.font = "bold 14px Outfit";
+        g.textAlign = "center";
+        g.fillText("M", avCx, ucY + 22);
+
+        const uTxtX = isAr ? sideX + sideW - 64 : sideX + 64;
         g.textAlign = isAr ? "end" : "start";
         g.fillStyle = text;
-        g.font = "bold 15px Cairo, sans-serif";
-        g.fillText(isAr ? "محمد علي" : "Mohamed Ali", userTxtX, 42);
+        g.font = "bold 13px Cairo, sans-serif";
+        g.fillText(isAr ? "محمد علي" : "Mohamed Ali", uTxtX, ucY + 12);
         g.fillStyle = text2;
-        g.font = "12px Cairo, sans-serif";
-        g.fillText(isAr ? "مدير النظام" : "System Admin", userTxtX, 58);
+        g.font = "11px Cairo, sans-serif";
+        g.fillText(isAr ? "مدير النظام" : "System Admin", uTxtX, ucY + 28);
 
         g.fillStyle = border;
-        g.fillRect(sideX + 20, 84, sideW - 40, 1);
+        g.fillRect(sideX + 14, ucY + 46, sideW - 28, 1);
 
+        // Sidebar nav items with icons
         const navItems = isAr
           ? [
-              "لوحة التحكم",
-              "المنتجات",
-              "الطلبات",
-              "العملاء",
-              "الديون",
-              "التقارير",
-              "الإعدادات",
+              { l: "لوحة التحكم", i: "📊" },
+              { l: "نقطة البيع", i: "🏪" },
+              { l: "الطلبات", i: "🧾" },
+              { l: "المنتجات", i: "📦" },
+              { l: "العملاء", i: "👥" },
+              { l: "الديون", i: "💸" },
+              { l: "التقارير", i: "📈" },
+              { l: "الإعدادات", i: "⚙️" },
             ]
           : [
-              "Dashboard",
-              "Products",
-              "Orders",
-              "Customers",
-              "Dues",
-              "Reports",
-              "Settings",
+              { l: "Dashboard", i: "📊" },
+              { l: "POS", i: "🏪" },
+              { l: "Orders", i: "🧾" },
+              { l: "Products", i: "📦" },
+              { l: "Customers", i: "👥" },
+              { l: "Dues", i: "💸" },
+              { l: "Reports", i: "📈" },
+              { l: "Settings", i: "⚙️" },
             ];
 
-        navItems.forEach((item, i) => {
-          const itemY = 110 + i * 50;
-          if (i === 0) {
+        navItems.forEach(({ l, i }, idx) => {
+          const iY = 130 + idx * 46;
+          const isActive = idx === 0;
+
+          if (isActive) {
             g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.12)`;
             g.beginPath();
-            g.roundRect(sideX + 16, itemY, sideW - 32, 40, 10);
+            g.roundRect(sideX + 10, iY, sideW - 20, 38, 10);
             g.fill();
           }
 
-          const iconX = isAr ? sideX + sideW - 44 : sideX + 32;
-          g.fillStyle = i === 0 ? accent : text2;
-          g.beginPath();
-          g.roundRect(iconX, itemY + 14, 12, 12, 4);
-          g.fill();
+          const iconX = isAr ? sideX + sideW - 48 : sideX + 18;
+          g.fillStyle = isActive ? accent : text2;
+          g.textAlign = "center";
+          g.font = "15px serif";
+          g.fillText(i, iconX + 8, iY + 26);
 
-          const labelX = isAr ? sideX + sideW - 58 : sideX + 58;
+          const labelX = isAr ? sideX + sideW - 64 : sideX + 52;
           g.textAlign = isAr ? "end" : "start";
-          g.font = `${i === 0 ? "bold " : " "}14px Cairo, sans-serif`;
-          g.fillText(item, labelX, itemY + 25);
+          g.fillStyle = isActive ? text : text2;
+          g.font = `${isActive ? "bold " : " "}13px Cairo, sans-serif`;
+          g.fillText(l, labelX, iY + 26);
         });
 
+        /* ── TOP NAVBAR ── */
         g.fillStyle = bg1;
-        g.fillRect(mainX, 0, mainW, 60);
+        g.fillRect(mainX, 0, mainW, 56);
         g.fillStyle = border;
-        g.fillRect(mainX, 59, mainW, 1);
+        g.fillRect(mainX, 55, mainW, 1);
 
-        const titleX = isAr ? mainX + mainW - 28 : mainX + 28;
-        g.textAlign = isAr ? "end" : "start";
-        g.fillStyle = text;
-        g.font = "bold 18px Cairo, sans-serif";
-        const pageTitle = isAr ? "لوحة التحكم" : "Dashboard";
-        g.fillText(pageTitle, titleX, 36);
-
-        const searchW = 320;
+        // Search bar
+        const searchW = 240;
         const searchX = mainX + mainW / 2 - searchW / 2;
         g.fillStyle = bg2;
         g.beginPath();
-        g.roundRect(searchX, 14, searchW, 32, 8);
+        g.roundRect(searchX, 12, searchW, 32, 8);
         g.fill();
-        g.fillStyle = text2;
+        g.fillStyle = text3;
         g.textAlign = isAr ? "end" : "start";
         g.font = "12px Cairo, sans-serif";
         g.fillText(
-          isAr ? "البحث في المتجر..." : "Search store...",
-          isAr ? searchX + searchW - 16 : searchX + 16,
-          35,
+          isAr ? "🔍 بحث..." : "🔍 Search...",
+          isAr ? searchX + searchW - 14 : searchX + 14,
+          33,
         );
 
-        const avSize = 32;
-        const topAvX = isAr ? mainX + 28 : mainX + mainW - 28 - avSize;
-        g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.2)`;
+        // Sync pill
+        const syncPillX = isAr ? mainX + mainW - 180 : mainX + mainW - 180;
+        g.fillStyle = isDark ? "rgba(16,185,129,0.12)" : "rgba(16,185,129,0.15)";
         g.beginPath();
-        g.roundRect(topAvX, 14, avSize, avSize, 9);
+        g.roundRect(syncPillX, 14, 90, 28, 14);
         g.fill();
+        g.strokeStyle = "rgba(16,185,129,0.3)";
+        g.lineWidth = 1;
+        g.stroke();
+        g.fillStyle = "#10b981";
+        g.font = "bold 11px Cairo, sans-serif";
+        g.textAlign = "start";
+        g.fillText("✓", syncPillX + 12, 33);
+        g.fillText(isAr ? "مزامن" : "Synced", syncPillX + 30, 33);
+
+        // Avatar in top bar
+        const topAvSize = 32;
+        const topAvX = isAr ? mainX + 18 : mainX + mainW - 18 - topAvSize;
         g.fillStyle = accent;
-        g.font = "bold 14px Outfit";
+        g.beginPath();
+        g.roundRect(topAvX, 12, topAvSize, topAvSize, 9);
+        g.fill();
+        g.fillStyle = "#fff";
+        g.font = "bold 13px Outfit";
         g.textAlign = "center";
-        g.fillText("M", topAvX + avSize / 2, 35);
+        g.fillText("M", topAvX + topAvSize / 2, 33);
 
-        const cardY = 80;
-        const cardH = 90;
-        const cardSpacing = 16;
-        const cardW = Math.floor((mainW - 28 * 2 - cardSpacing * 5) / 6);
+        /* ── DASHBOARD HEADER ── */
+        const hY = 68;
+        const hPad = 24;
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 15px Cairo, sans-serif";
+        g.fillText(
+          isAr ? "مساء الخير، محمد 👋" : "Good evening, Mohamed 👋",
+          isAr ? mainX + mainW - hPad : mainX + hPad,
+          hY + 10,
+        );
+        g.fillStyle = text2;
+        g.font = "11px Cairo, sans-serif";
+        g.fillText(
+          isAr
+            ? "السبت، ١٧ مايو ٢٠٢٦"
+            : "Saturday, May 17, 2026",
+          isAr ? mainX + mainW - hPad : mainX + hPad,
+          hY + 28,
+        );
 
-        const cardColors = [
-          {
-            icon: "📦",
-            label: isAr ? "المنتجات" : "Products",
-            val: "248",
-            clr: accent,
-          },
-          {
-            icon: "🧾",
-            label: isAr ? "الطلبات" : "Orders",
-            val: "93",
-            clr: "#818cf8",
-          },
-          {
-            icon: "👥",
-            label: isAr ? "العملاء" : "Customers",
-            val: "156",
-            clr: "#4ade80",
-          },
-          {
-            icon: "💰",
-            label: isAr ? "الإيراد" : "Revenue",
-            val: "$12K",
-            clr: "#eab308",
-          },
-          {
-            icon: "⚠️",
-            label: isAr ? "نواقص" : "Low Stock",
-            val: "12",
-            clr: "#f97316",
-          },
-          {
-            icon: "💸",
-            label: isAr ? "ديون" : "Dues",
-            val: "$3.2K",
-            clr: "#ef4444",
-          },
+        // Header actions
+        const hBtnY = hY - 4;
+        const hBtnW = 68;
+        const hBtnH = 30;
+        const hBtnX1 = isAr ? mainX + hPad : mainX + mainW - hPad - hBtnW;
+        const hBtnX2 = isAr
+          ? mainX + hPad + hBtnW + 8
+          : mainX + mainW - hPad - hBtnW * 2 - 8;
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(hBtnX2, hBtnY, hBtnW, hBtnH, 8);
+        g.fill();
+        g.strokeStyle = border;
+        g.lineWidth = 1;
+        g.stroke();
+        g.fillStyle = text2;
+        g.font = "11px Cairo";
+        g.textAlign = "center";
+        g.fillText(isAr ? "تحديث" : "Refresh", hBtnX2 + hBtnW / 2, hBtnY + 19);
+
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(hBtnX1, hBtnY, hBtnW, hBtnH, 8);
+        g.fill();
+        g.strokeStyle = border;
+        g.stroke();
+        g.fillStyle = text2;
+        g.fillText(isAr ? "تقرير" : "Report", hBtnX1 + hBtnW / 2, hBtnY + 19);
+
+        /* ── KPI CARDS (StoreOS style with left border accent) ── */
+        const cardsY = 112;
+        const cardGap = 12;
+        const cardData = [
+          { icon: "📦", label: isAr ? "المنتجات" : "Products", val: "248", clr: "#3b82f6" },
+          { icon: "👥", label: isAr ? "العملاء" : "Customers", val: "156", clr: "#14b8a6" },
+          { icon: "🧾", label: isAr ? "طلبات اليوم" : "Today Orders", val: "12", clr: "#10b981" },
+          { icon: "💰", label: isAr ? "إيراد الشهر" : "Month Revenue", val: "$12K", clr: "#f59e0b" },
+          { icon: "⚠️", label: isAr ? "نواقص" : "Low Stock", val: "3", clr: "#f97316" },
+          { icon: "💸", label: isAr ? "ديون" : "Dues", val: "$3.2K", clr: "#ef4444" },
         ];
 
-        cardColors.forEach(({ icon, label, val, clr }, i) => {
+        const cardW = Math.floor((mainW - hPad * 2 - cardGap * 5) / 6);
+        const cardH = 72;
+
+        cardData.forEach(({ icon, label, val, clr }, i) => {
           const cx = isAr
-            ? mainX + mainW - 28 - cardW - i * (cardW + cardSpacing)
-            : mainX + 28 + i * (cardW + cardSpacing);
-          const cr = hexToRgb(clr.startsWith("#") ? clr : accent);
+            ? mainX + mainW - hPad - cardW - i * (cardW + cardGap)
+            : mainX + hPad + i * (cardW + cardGap);
 
           g.fillStyle = bg2;
           g.beginPath();
-          g.roundRect(cx, cardY, cardW, cardH, 12);
+          g.roundRect(cx, cardsY, cardW, cardH, 10);
           g.fill();
           g.strokeStyle = border;
           g.lineWidth = 1;
           g.stroke();
 
-          const cIconX = isAr ? cx + cardW - 14 - 36 : cx + 14;
-          g.fillStyle = `rgba(${cr.r},${cr.g},${cr.b},0.15)`;
+          // Left accent border
+          const acX = isAr ? cx + cardW - 3 : cx;
+          g.fillStyle = clr;
           g.beginPath();
-          g.roundRect(cIconX, cardY + 14, 36, 36, 9);
+          g.roundRect(acX, cardsY + 6, 3, cardH - 12, 2);
           g.fill();
 
+          // Icon
+          const icX = isAr ? cx + cardW - 14 - 28 : cx + 14;
+          g.fillStyle = `${clr}18`;
+          g.beginPath();
+          g.roundRect(icX, cardsY + 10, 28, 28, 7);
+          g.fill();
           g.textAlign = "center";
-          g.font = "18px serif";
-          g.fillText(icon, cIconX + 18, cardY + 38);
+          g.font = "14px serif";
+          g.fillStyle = clr;
+          g.fillText(icon, icX + 14, cardsY + 30);
 
+          // Value
           g.fillStyle = text;
           g.textAlign = isAr ? "end" : "start";
-          g.font = "bold 22px Outfit, sans-serif";
-          g.fillText(val, isAr ? cx + cardW - 14 : cx + 14, cardY + 75);
+          g.font = "bold 14px Outfit";
+          g.fillText(val, isAr ? cx + cardW - 48 : cx + 48, cardsY + 30);
 
+          // Label
           g.fillStyle = text2;
-          g.font = "12px Cairo, sans-serif";
-          g.textAlign = isAr ? "start" : "end";
-          g.fillText(label, isAr ? cx + 14 : cx + cardW - 14, cardY + 75);
+          g.font = "9px Cairo";
+          g.fillText(label, isAr ? cx + cardW - 48 : cx + 48, cardsY + 46);
         });
 
-        const pillY = 190;
-        const pills = isAr
+        /* ── STATUS FILTER PILLS ── */
+        const pillY = 198;
+        const statusPills = isAr
           ? [
-              { l: "قيد الانتظار (14)", c: "#f59e0b" },
-              { l: "مدفوع جزئياً (5)", c: "#8b5cf6" },
-              { l: "مكتمل (74)", c: "#10b981" },
+              { l: "قيد الانتظار", c: "#f59e0b", n: 14 },
+              { l: "مدفوع جزئياً", c: "#06b6d4", n: 5 },
+              { l: "مكتمل", c: "#10b981", n: 74 },
             ]
           : [
-              { l: "Pending (14)", c: "#f59e0b" },
-              { l: "Partly Paid (5)", c: "#8b5cf6" },
-              { l: "Paid (74)", c: "#10b981" },
+              { l: "Pending", c: "#f59e0b", n: 14 },
+              { l: "Partly Paid", c: "#06b6d4", n: 5 },
+              { l: "Paid", c: "#10b981", n: 74 },
             ];
 
-        let currentPillX = isAr ? mainX + mainW - 28 : mainX + 28;
-        pills.forEach(({ l, c }) => {
-          g.font = "12px Cairo, sans-serif";
-          const textW = g.measureText(l).width;
-          const pillW = textW + 32;
-          const pX = isAr ? currentPillX - pillW : currentPillX;
+        let spX = isAr ? mainX + mainW - hPad : mainX + hPad;
+        statusPills.forEach(({ l, c, n }) => {
+          g.font = "11px Cairo, sans-serif";
+          const tw = g.measureText(l).width + g.measureText(String(n)).width + 56;
+          const pX = isAr ? spX - tw : spX;
 
-          const pCr = hexToRgb(c);
-          g.fillStyle = `rgba(${pCr.r},${pCr.g},${pCr.b},0.15)`;
+          g.fillStyle = `rgba(${hexToRgb(c).r},${hexToRgb(c).g},${hexToRgb(c).b},0.12)`;
           g.beginPath();
-          g.roundRect(pX, pillY, pillW, 32, 16);
+          g.roundRect(pX, pillY, tw, 28, 14);
           g.fill();
+          g.strokeStyle = `${c}30`;
+          g.lineWidth = 1;
+          g.stroke();
 
-          const dotX = isAr ? pX + pillW - 14 : pX + 14;
+          const dotX = isAr ? pX + tw - 18 : pX + 14;
           g.fillStyle = c;
           g.beginPath();
-          g.arc(dotX, pillY + 16, 4, 0, Math.PI * 2);
+          g.arc(dotX, pillY + 14, 4, 0, Math.PI * 2);
           g.fill();
 
           g.textAlign = isAr ? "end" : "start";
-          g.fillText(l, isAr ? pX + pillW - 24 : pX + 24, pillY + 21);
+          g.fillStyle = text;
+          g.font = "11px Cairo";
+          g.fillText(l, isAr ? pX + tw - 28 : pX + 24, pillY + 19);
 
-          currentPillX = isAr ? pX - 12 : pX + pillW + 12;
+          // Count badge
+          const nX = isAr ? pX + 8 : pX + tw - 18;
+          g.fillStyle = c;
+          g.font = "bold 9px Cairo";
+          const nw = g.measureText(String(n)).width + 14;
+          g.beginPath();
+          g.roundRect(nX, pillY + 4, nw, 20, 10);
+          g.fill();
+          g.fillStyle = bg;
+          g.textAlign = "center";
+          g.fillText(String(n), nX + nw / 2, pillY + 18);
+
+          spX = isAr ? pX - 10 : pX + tw + 10;
         });
 
-        const colY = 240;
-        const colH = H - colY - 28;
-        const colW = Math.floor((mainW - 28 * 3) / 2);
-        const col1X = isAr ? mainX + mainW - 28 - colW : mainX + 28;
-        const col2X = isAr ? mainX + 28 : mainX + 28 + colW + 28;
+        /* ── 2-COLUMN MAIN GRID ── */
+        const colY = 238;
+        const colGap = 12;
+        const lColPct = 0.6;
+        const lColW = Math.floor((mainW - hPad * 2 - colGap) * lColPct);
+        const rColW = Math.floor((mainW - hPad * 2 - colGap) * (1 - lColPct));
+        const lColX = isAr ? mainX + mainW - hPad - lColW : mainX + hPad;
+        const rColX = isAr ? mainX + hPad : mainX + hPad + lColW + colGap;
+        const availMain = H - colY - hPad;
+
+        // ── LEFT COLUMN: Revenue Chart ──
+        const chartH = Math.floor(availMain * 0.37);
+        const alertH = 60;
 
         g.fillStyle = bg2;
         g.beginPath();
-        g.roundRect(col1X, colY, colW, colH, 14);
+        g.roundRect(lColX, colY, lColW, chartH, 12);
         g.fill();
         g.strokeStyle = border;
         g.stroke();
 
-        const c1IconX = isAr ? col1X + colW - 20 - 36 : col1X + 20;
-        g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.15)`;
+        // Chart header
+        const chIconX = isAr ? lColX + lColW - 18 - 26 : lColX + 18;
+        g.fillStyle = "rgba(59,130,246,0.12)";
         g.beginPath();
-        g.roundRect(c1IconX, colY + 20, 36, 36, 10);
+        g.roundRect(chIconX, colY + 14, 26, 26, 7);
         g.fill();
-        g.fillStyle = accent;
+        g.fillStyle = "#3b82f6";
         g.textAlign = "center";
-        g.font = "18px serif";
-        g.fillText("🧾", c1IconX + 18, colY + 45);
+        g.font = "12px sans-serif";
+        g.fillText("📈", chIconX + 13, colY + 33);
 
         g.fillStyle = text;
         g.textAlign = isAr ? "end" : "start";
-        g.font = "bold 16px Cairo, sans-serif";
+        g.font = "bold 13px Cairo, sans-serif";
         g.fillText(
-          isAr ? "أحدث الطلبات" : "Recent Orders",
-          isAr ? col1X + colW - 68 : col1X + 68,
-          colY + 44,
+          isAr ? "التحصيلات اليومية" : "Daily Collections",
+          isAr ? lColX + lColW - 56 : lColX + 56,
+          colY + 33,
         );
 
-        g.fillStyle = border;
-        g.fillRect(col1X, colY + 76, colW, 1);
+        g.fillStyle = text3;
+        g.font = "10px Cairo";
+        g.fillText(
+          isAr ? "هذا الشهر" : "This month",
+          isAr ? lColX + lColW - 56 : lColX + 56,
+          colY + 48,
+        );
 
-        const orderRows = isAr
-          ? [
-              {
-                id: "#1",
-                name: "أحمد علي",
-                date: "2025-01-12",
-                amt: "$120",
-                badge: "success",
-                bl: "مكتمل",
-              },
-              {
-                id: "#2",
-                name: "محمد سالم",
-                date: "2025-01-11",
-                amt: "$85",
-                badge: "warning",
-                bl: "معلّق",
-              },
-              {
-                id: "#3",
-                name: "خالد نور",
-                date: "2025-01-10",
-                amt: "$200",
-                badge: "success",
-                bl: "مكتمل",
-              },
-              {
-                id: "#4",
-                name: "سارة حسن",
-                date: "2025-01-09",
-                amt: "$55",
-                badge: "info",
-                bl: "تجهيز",
-              },
-              {
-                id: "#5",
-                name: "يوسف عمر",
-                date: "2025-01-08",
-                amt: "$340",
-                badge: "success",
-                bl: "مكتمل",
-              },
-            ]
-          : [
-              {
-                id: "#1",
-                name: "Ahmed Ali",
-                date: "Jan 12, 2025",
-                amt: "$120",
-                badge: "success",
-                bl: "Paid",
-              },
-              {
-                id: "#2",
-                name: "Mohamed S.",
-                date: "Jan 11, 2025",
-                amt: "$85",
-                badge: "warning",
-                bl: "Pending",
-              },
-              {
-                id: "#3",
-                name: "Khaled N.",
-                date: "Jan 10, 2025",
-                amt: "$200",
-                badge: "success",
-                bl: "Paid",
-              },
-              {
-                id: "#4",
-                name: "Sara H.",
-                date: "Jan 09, 2025",
-                amt: "$55",
-                badge: "info",
-                bl: "Processing",
-              },
-              {
-                id: "#5",
-                name: "Youssef O.",
-                date: "Jan 08, 2025",
-                amt: "$340",
-                badge: "success",
-                bl: "Paid",
-              },
-            ];
+        // Revenue pills
+        const revPills = [
+          { l: isAr ? "محصل" : "Collected", v: "$9.5K", c: "#10b981" },
+          { l: isAr ? "متبقي" : "Outstanding", v: "$2.5K", c: "#f59e0b" },
+          { l: isAr ? "ربح" : "Profit", v: "$1.8K", c: "#14b8a6" },
+        ];
+        const rpY = colY + 50;
+        let rpX = isAr ? lColX + lColW - 16 : lColX + 16;
+        const rpGap = 8;
+        revPills.forEach(({ l, v, c }) => {
+          const pw = g.measureText(l).width + g.measureText(v).width + 34;
+          const px = isAr ? rpX - pw : rpX;
 
-        const badgeStyles = {
-          success: { bg: "rgba(16,185,129,0.15)", fg: "#10b981" },
-          warning: { bg: "rgba(245,158,11,0.15)", fg: "#f59e0b" },
-          info: { bg: "rgba(56,189,248,0.15)", fg: "#38bdf8" },
-        };
-
-        orderRows.forEach((r, i) => {
-          const oY = colY + 90 + i * 54;
-          const pad = 24;
-
-          const idX = isAr ? col1X + colW - pad : col1X + pad;
-          const nameX = isAr ? col1X + colW - 64 : col1X + 64;
-
-          const badgeW = 70;
-          const badgeX = isAr ? col1X + pad : col1X + colW - pad - badgeW;
-
-          const amtX = isAr ? badgeX + badgeW + 16 : badgeX - 16;
-          const dateX = isAr ? amtX + 60 : amtX - 60;
-
-          g.fillStyle = text2;
-          g.textAlign = isAr ? "end" : "start";
-          g.font = "bold 13px JetBrains Mono";
-          g.fillText(r.id, idX, oY + 20);
-
-          g.fillStyle = text;
-          g.font = "bold 14px Cairo";
-          g.fillText(r.name, nameX, oY + 20);
-
-          g.textAlign = isAr ? "start" : "end";
-          g.fillStyle = text2;
-          g.font = "12px JetBrains Mono";
-          g.fillText(r.date, dateX, oY + 20);
-
-          g.fillStyle = text;
-          g.font = "bold 14px JetBrains Mono";
-          g.fillText(r.amt, amtX, oY + 20);
-
-          const bs = badgeStyles[r.badge];
-          g.fillStyle = bs.bg;
+          g.fillStyle = `rgba(${hexToRgb(c).r},${hexToRgb(c).g},${hexToRgb(c).b},0.1)`;
           g.beginPath();
-          g.roundRect(badgeX, oY + 4, badgeW, 24, 6);
+          g.roundRect(px, rpY, pw, 22, 11);
           g.fill();
-          g.fillStyle = bs.fg;
-          g.font = "bold 11px Cairo";
-          g.textAlign = "center";
-          g.fillText(r.bl, badgeX + badgeW / 2, oY + 20);
 
-          if (i < orderRows.length - 1) {
-            g.fillStyle = border;
-            g.fillRect(col1X + 20, oY + 40, colW - 40, 1);
-          }
+          g.fillStyle = c;
+          g.font = "bold 10px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(l, isAr ? px + pw - 8 : px + 8, rpY + 16);
+
+          g.font = "bold 10px Outfit";
+          const vx = isAr ? px + 8 : px + pw - 8;
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(v, vx, rpY + 16);
+
+          rpX = isAr ? px - rpGap : px + pw + rpGap;
         });
 
+        // Bar chart placeholder
+        const barsY = rpY + 34;
+        const barsH = chartH - (barsY - colY) - 16;
+        const barsW = lColW - 32;
+        const numBars = 14;
+        const bGap = 4;
+        const bW = Math.floor((barsW - bGap * (numBars - 1)) / numBars);
+        const barData = [
+          45, 62, 38, 72, 55, 80, 68, 90, 75, 48, 85, 70, 95, 60,
+        ];
+
+        barData.forEach((v, i) => {
+          const bh = Math.max(4, (v / 100) * barsH);
+          const bx = isAr
+            ? barsY + barsH - 8 // aligned differently for ar/ltr
+            : lColX + 16 + i * (bW + bGap);
+          const by = barsY + barsH - bh;
+
+          g.fillStyle =
+            i === barData.length - 1
+              ? accent
+              : isDark
+                ? "rgba(234,28,36,0.25)"
+                : "rgba(234,28,36,0.35)";
+          g.beginPath();
+          g.roundRect(
+            isAr
+            ? lColX + lColW - 16 - (i + 1) * (bW + bGap)
+            : lColX + 16 + i * (bW + bGap),
+            by, bW, bh, 3);
+          g.fill();
+        });
+
+        // ── RIGHT COLUMN top: Donut + Debtors ──
+        const donutH = Math.floor(chartH * 0.55);
+        const debtR1H = chartH - donutH;
+
+        // Donut panel
         g.fillStyle = bg2;
         g.beginPath();
-        g.roundRect(col2X, colY, colW, colH, 14);
+        g.roundRect(rColX, colY, rColW, donutH, 12);
         g.fill();
         g.strokeStyle = border;
         g.stroke();
 
-        const c2IconX = isAr ? col2X + colW - 20 - 36 : col2X + 20;
-        g.fillStyle = "rgba(239,68,68,0.15)";
+        const dIconX = isAr ? rColX + rColW - 18 - 26 : rColX + 18;
+        g.fillStyle = "rgba(239,68,68,0.1)";
         g.beginPath();
-        g.roundRect(c2IconX, colY + 20, 36, 36, 10);
+        g.roundRect(dIconX, colY + 14, 26, 26, 7);
         g.fill();
         g.fillStyle = "#ef4444";
         g.textAlign = "center";
-        g.font = "18px serif";
-        g.fillText("💸", c2IconX + 18, colY + 45);
+        g.font = "12px sans-serif";
+        g.fillText("🍩", dIconX + 13, colY + 33);
 
         g.fillStyle = text;
         g.textAlign = isAr ? "end" : "start";
-        g.font = "bold 16px Cairo, sans-serif";
+        g.font = "bold 12px Cairo, sans-serif";
+        g.fillText(
+          isAr ? "حالة الطلبات" : "Order Status",
+          isAr ? rColX + rColW - 56 : rColX + 56,
+          colY + 33,
+        );
+
+        // Donut chart (simplified as arcs)
+        const donutCX = isAr ? rColX + rColW - 74 : rColX + 74;
+        const donutCY = colY + donutH / 2 + 10;
+        const donutR = 36;
+        const donutData = [
+          { pct: 0.45, c: "#f59e0b" },
+          { pct: 0.14, c: "#06b6d4" },
+          { pct: 0.41, c: "#10b981" },
+        ];
+
+        let startAngle = -Math.PI / 2;
+        donutData.forEach(({ pct, c }) => {
+          const endAngle = startAngle + pct * Math.PI * 2;
+          g.beginPath();
+          g.arc(donutCX, donutCY, donutR, startAngle, endAngle);
+          g.lineWidth = 10;
+          g.strokeStyle = c;
+          g.stroke();
+          startAngle = endAngle;
+        });
+
+        // Inner circle (to make it a donut)
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.arc(donutCX, donutCY, donutR - 10, 0, Math.PI * 2);
+        g.fill();
+
+        // Legend
+        const legX = isAr ? rColX + 16 : rColX + donutR * 2 + 28;
+        const legY = colY + donutH / 2 - 18;
+        const statusLegends = isAr
+          ? [
+              { l: "قيد الانتظار", n: 14, c: "#f59e0b" },
+              { l: "مدفوع جزئياً", n: 5, c: "#06b6d4" },
+              { l: "مكتمل", n: 74, c: "#10b981" },
+            ]
+          : [
+              { l: "Pending", n: 14, c: "#f59e0b" },
+              { l: "Partly Paid", n: 5, c: "#06b6d4" },
+              { l: "Paid", n: 74, c: "#10b981" },
+            ];
+
+        statusLegends.forEach(({ l, n, c }, i) => {
+          const ly = legY + i * 22;
+          g.fillStyle = c;
+          g.beginPath();
+          g.roundRect(isAr ? rColX + rColW - 16 - 12 : legX, ly, 8, 8, 2);
+          g.fill();
+
+          g.fillStyle = text;
+          g.font = "11px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(l, isAr ? legX - 18 : legX + 14, ly + 8);
+
+          g.fillStyle = text;
+          g.font = "bold 11px Outfit";
+          g.fillText(String(n), isAr ? rColX + 16 : rColX + rColW - 18, ly + 8);
+        });
+
+        // Debtors panel
+        const debtY2 = colY + donutH + colGap;
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(rColX, debtY2, rColW, debtR1H, 12);
+        g.fill();
+        g.strokeStyle = border;
+        g.stroke();
+
+        const debtIconX = isAr ? rColX + rColW - 18 - 26 : rColX + 18;
+        g.fillStyle = "rgba(239,68,68,0.1)";
+        g.beginPath();
+        g.roundRect(debtIconX, debtY2 + 14, 26, 26, 7);
+        g.fill();
+        g.fillStyle = "#ef4444";
+        g.textAlign = "center";
+        g.font = "12px sans-serif";
+        g.fillText("💸", debtIconX + 13, debtY2 + 33);
+
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 12px Cairo, sans-serif";
         g.fillText(
           isAr ? "أكبر المدينين" : "Top Debtors",
-          isAr ? col2X + colW - 68 : col2X + 68,
-          colY + 44,
+          isAr ? rColX + rColW - 56 : rColX + 56,
+          debtY2 + 33,
+        );
+
+        const debtors = isAr
+          ? [
+              { n: "محمود الدسوقي", a: "$1,450" },
+              { n: "شركة الأمل", a: "$980" },
+              { n: "علي حسن", a: "$760" },
+            ]
+          : [
+              { n: "Mahmoud E.", a: "$1,450" },
+              { n: "Al-Amal Co.", a: "$980" },
+              { n: "Ali H.", a: "$760" },
+            ];
+
+        debtors.forEach(({ n, a }, i) => {
+          const dY2 = debtY2 + 54 + i * 40;
+          const numX = isAr ? rColX + rColW - 16 : rColX + 16;
+          g.fillStyle = text3;
+          g.textAlign = isAr ? "end" : "start";
+          g.font = "bold 10px Outfit";
+          g.fillText(`${i + 1}`, numX, dY2 + 14);
+
+          const dAvCx = isAr ? rColX + rColW - 44 : rColX + 44;
+          g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.15)`;
+          g.beginPath();
+          g.arc(dAvCx, dY2 + 10, 12, 0, Math.PI * 2);
+          g.fill();
+          g.fillStyle = accent;
+          g.font = "bold 10px Outfit";
+          g.textAlign = "center";
+          g.fillText(n[0], dAvCx, dY2 + 15);
+
+          const txtX = isAr ? rColX + rColW - 66 : rColX + 66;
+          g.fillStyle = text;
+          g.textAlign = isAr ? "end" : "start";
+          g.font = "bold 12px Cairo";
+          g.fillText(n, txtX, dY2 + 8);
+
+          const amtX = isAr ? rColX + 16 : rColX + rColW - 16;
+          g.fillStyle = "#ef4444";
+          g.font = "bold 12px Outfit";
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(a, amtX, dY2 + 14);
+
+          if (i < debtors.length - 1) {
+            g.fillStyle = border;
+            g.fillRect(rColX + 16, dY2 + 28, rColW - 32, 1);
+          }
+        });
+
+        /* ── LOW STOCK ALERT ── */
+        const alertY = colY + chartH + colGap;
+
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(lColX, alertY, lColW, alertH, 12);
+        g.fill();
+        g.strokeStyle = "rgba(245,158,11,0.3)";
+        g.stroke();
+
+        const alIconX = isAr ? lColX + lColW - 18 - 26 : lColX + 18;
+        g.fillStyle = "rgba(245,158,11,0.12)";
+        g.beginPath();
+        g.roundRect(alIconX, alertY + 14, 26, 26, 7);
+        g.fill();
+        g.fillStyle = "#f59e0b";
+        g.textAlign = "center";
+        g.font = "12px sans-serif";
+        g.fillText("⚠️", alIconX + 13, alertY + 33);
+
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 12px Cairo, sans-serif";
+        g.fillText(
+          isAr ? "تنبيه المخزون المنخفض" : "Low Stock Alert",
+          isAr ? lColX + lColW - 56 : lColX + 56,
+          alertY + 33,
+        );
+
+        // Low stock items
+        const lsItems = isAr
+          ? [
+              { n: "طابعة حرارية", s: "2", u: "قطعة" },
+              { n: "أكياس بلاستيك", s: "0", u: "حزمة" },
+            ]
+          : [
+              { n: "Thermal Printer", s: "2", u: "pcs" },
+              { n: "Plastic Bags", s: "0", u: "pk" },
+            ];
+
+        let lsX = isAr ? lColX + lColW - 42 : lColX + 56;
+        lsItems.forEach(({ n, s, u }) => {
+          const lsCardW = Math.min(200, (lColW - 80) / 2);
+          const lcx = isAr ? lsX - lsCardW : lsX;
+
+          g.fillStyle = bg3;
+          g.beginPath();
+          g.roundRect(lcx, alertY + 32, lsCardW, 22, 5);
+          g.fill();
+
+          g.fillStyle = text;
+          g.font = "9px Cairo";
+          g.textAlign = "center";
+          g.fillText(n, lcx + lsCardW / 2, alertY + 47);
+
+          const sv = parseInt(s);
+          g.fillStyle = sv === 0 ? "#ef4444" : "#f59e0b";
+          g.font = "bold 10px Outfit";
+          g.fillText(s, lcx + lsCardW - 24, alertY + 47);
+
+          g.fillStyle = text3;
+          g.font = "7px Cairo";
+          g.fillText(u, lcx + lsCardW - 10, alertY + 47);
+
+          lsX = isAr ? lcx - 6 : lcx + lsCardW + 6;
+        });
+
+        /* ── RECENT ORDERS ── */
+        const ordersY = alertY + alertH + colGap;
+        const ordersH = H - ordersY - hPad;
+        const totalOrdW = lColW + rColW + colGap;
+
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(lColX, ordersY, totalOrdW, ordersH, 12);
+        g.fill();
+        g.strokeStyle = border;
+        g.stroke();
+
+        const oIconX = isAr ? lColX + totalOrdW - 18 - 26 : lColX + 18;
+        g.fillStyle = "rgba(59,130,246,0.12)";
+        g.beginPath();
+        g.roundRect(oIconX, ordersY + 14, 26, 26, 7);
+        g.fill();
+        g.fillStyle = "#3b82f6";
+        g.textAlign = "center";
+        g.font = "12px sans-serif";
+        g.fillText("🧾", oIconX + 13, ordersY + 33);
+
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 13px Cairo, sans-serif";
+        g.fillText(
+          isAr ? "أحدث الطلبات" : "Recent Orders",
+          isAr ? mainX + mainW - hPad : lColX + 56,
+          ordersY + 33,
         );
 
         g.fillStyle = border;
-        g.fillRect(col2X, colY + 76, colW, 1);
+        g.fillRect(lColX + 16, ordersY + 46, totalOrdW - 32, 1);
 
-        const debtorRows = isAr
+        const orderRows = isAr
           ? [
-              {
-                name: "محمود الدسوقي",
-                phone: "+20 100 123 4567",
-                amt: "$1,450",
-              },
-              {
-                name: "شركة الأمل للتجارة",
-                phone: "+20 111 987 6543",
-                amt: "$980",
-              },
-              { name: "علي حسن", phone: "+20 122 333 4444", amt: "$760" },
-              { name: "مؤسسة النور", phone: "+20 100 555 6666", amt: "$420" },
-              { name: "طارق زياد", phone: "+20 155 777 8888", amt: "$310" },
+              { n: "أحمد علي", d: "10m", it: 3, a: "$120", s: "مكتمل", sc: "#10b981" },
+              { n: "محمد سالم", d: "1h", it: 1, a: "$85", s: "معلق", sc: "#f59e0b" },
+              { n: "خالد نور", d: "2h", it: 5, a: "$200", s: "مكتمل", sc: "#10b981" },
+              { n: "سارة حسن", d: "3h", it: 2, a: "$55", s: "قيد المعالجة", sc: "#06b6d4" },
             ]
           : [
-              {
-                name: "Mahmoud Eldesouky",
-                phone: "+1 (555) 123-4567",
-                amt: "$1,450",
-              },
-              {
-                name: "Al-Amal Trading",
-                phone: "+1 (555) 987-6543",
-                amt: "$980",
-              },
-              { name: "Ali Hassan", phone: "+1 (555) 333-4444", amt: "$760" },
-              { name: "Al-Nour Est.", phone: "+1 (555) 555-6666", amt: "$420" },
-              { name: "Tarek Ziad", phone: "+1 (555) 777-8888", amt: "$310" },
+              { n: "Ahmed Ali", d: "10m", it: 3, a: "$120", s: "Paid", sc: "#10b981" },
+              { n: "Mohamed S.", d: "1h", it: 1, a: "$85", s: "Pending", sc: "#f59e0b" },
+              { n: "Khaled N.", d: "2h", it: 5, a: "$200", s: "Paid", sc: "#10b981" },
+              { n: "Sara H.", d: "3h", it: 2, a: "$55", s: "Processing", sc: "#06b6d4" },
             ];
 
-        debtorRows.forEach((r, i) => {
-          const dY = colY + 90 + i * 54;
-          const pad = 24;
+        orderRows.forEach(({ n, d, it, a, s, sc }, i) => {
+          const oY = ordersY + 56 + i * 40;
 
-          const numX = isAr ? col2X + colW - pad : col2X + pad;
-          const dAvCx = isAr ? col2X + colW - 64 : col2X + 64;
-          const txtX = isAr ? col2X + colW - 94 : col2X + 94;
-          const dAmtX = isAr ? col2X + pad : col2X + colW - pad;
-
-          g.fillStyle = text2;
-          g.textAlign = isAr ? "end" : "start";
-          g.font = "bold 13px JetBrains Mono";
-          g.fillText(`${i + 1}.`, numX, dY + 20);
-
-          g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.15)`;
+          // Avatar
+          const avCx = isAr ? lColX + totalOrdW - 40 : lColX + 40;
+          g.fillStyle = bg3;
           g.beginPath();
-          g.arc(dAvCx, dY + 16, 16, 0, Math.PI * 2);
+          g.arc(avCx, oY + 11, 12, 0, Math.PI * 2);
           g.fill();
-          g.fillStyle = accent;
-          g.font = "bold 12px Outfit";
-          g.textAlign = "center";
-          g.fillText(r.name[0], dAvCx, dY + 21);
-
-          g.textAlign = isAr ? "end" : "start";
-          g.fillStyle = text;
-          g.font = "bold 14px Cairo";
-          g.fillText(r.name, txtX, dY + 12);
-
           g.fillStyle = text2;
-          g.font = "11px JetBrains Mono";
-          g.fillText(r.phone, txtX, dY + 28);
+          g.font = "bold 9px Outfit";
+          g.textAlign = "center";
+          g.fillText(n[0], avCx, oY + 15);
 
-          g.fillStyle = "#ef4444";
-          g.font = "bold 15px JetBrains Mono";
+          // Name
+          const nameX = isAr ? lColX + totalOrdW - 60 : lColX + 56;
+          g.fillStyle = text;
+          g.textAlign = isAr ? "end" : "start";
+          g.font = "bold 12px Cairo";
+          g.fillText(n, nameX, oY + 10);
+
+          // Date
+          g.fillStyle = text3;
+          g.font = "9px Cairo";
+          g.fillText(d, nameX, oY + 24);
+
+          // Item count
+          const itX = isAr ? nameX - 80 : nameX + 100;
+          g.fillStyle = text2;
+          g.font = "10px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(`📦 ${it}`, itX, oY + 10);
+
+          // Status badge (left side in LTR, right side in RTL)
+          const bW2 = 56;
+          const bX = isAr ? lColX + 20 : lColX + totalOrdW - 20 - bW2;
+          g.fillStyle = `${sc}18`;
+          g.beginPath();
+          g.roundRect(bX, oY + 1, bW2, 20, 10);
+          g.fill();
+          g.fillStyle = sc;
+          g.font = "bold 9px Cairo";
+          g.textAlign = "center";
+          g.fillText(s, bX + bW2 / 2, oY + 15);
+
+          // Amount below or next to badge
+          const aX = isAr ? bX + bW2 + 10 : bX - 10;
           g.textAlign = isAr ? "start" : "end";
-          g.fillText(r.amt, dAmtX, dY + 20);
+          g.fillStyle = text;
+          g.font = "bold 13px Outfit";
+          g.fillText(a, aX, oY + 16);
 
-          if (i < debtorRows.length - 1) {
+          if (i < orderRows.length - 1) {
             g.fillStyle = border;
-            g.fillRect(col2X + 20, dY + 40, colW - 40, 1);
+            g.fillRect(lColX + 20, oY + 32, totalOrdW - 40, 1);
           }
         });
 
         g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.06)`;
-        g.font = "bold 11px JetBrains Mono, sans-serif";
+        g.font = "bold 10px JetBrains Mono, sans-serif";
         g.textAlign = isAr ? "start" : "end";
         g.fillText(
           `[SCREENSHOT: desktop_${lang}_${theme}]`,
@@ -1824,20 +2152,11 @@
       }
 
       /* ─── MOBILE PLACEHOLDER SCREEN ─── */
-      /**
-       * FULL MOBILE DASHBOARD RENDERER
-       * Handles Safe Area, RTL/LTR, and High-DPI textures for 3D models.
-       */
       function drawMobilePlaceholder(accent, accent2, theme, lang) {
-        // Helper for alpha transparency
         const hexToRgb = (hex) => {
           const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
           return result
-            ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16),
-              }
+            ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) }
             : { r: 0, g: 0, b: 0 };
         };
 
@@ -1851,223 +2170,437 @@
 
         const isDark = theme === "dark";
         const isAr = lang === "ar";
+        const safeArea = 44;
+        const headerH = 56;
+        const contentStart = safeArea + headerH;
+        const sidePad = 16;
 
-        // Configuration
-        const safeArea = 48; // Space for the physical notch
-        const headerHeight = 60;
-        const contentStart = safeArea + headerHeight;
-
-        // Theme Palette
         const bg = isDark ? "#08080c" : "#f4f4f8";
         const bg1 = isDark ? "#0e0e14" : "#ebebf0";
-        const bg2 = isDark ? "#141420" : "#ffffff";
-        const text = isDark ? "#f2f2f8" : "#000";
-        const text2 = isDark ? "#9090a8" : "#000";
-        const border = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.5)";
+        const bg2 = isDark ? "#141420" : "#fff";
+        const bg3 = isDark ? "#1c1c2a" : "#e8e8ee";
+        const text = isDark ? "#f2f2f8" : "#222";
+        const text2 = isDark ? "#9090a8" : "#555";
+        const text3 = isDark ? "#4a4a60" : "#999";
+        const border = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.1)";
         const ac = hexToRgb(accent);
 
-        // 1. Background & Depth Gradient
+        // Background
         g.fillStyle = bg;
         g.fillRect(0, 0, W, H);
 
-        const topGrad = g.createLinearGradient(0, safeArea, 0, 400);
+        // Gradient overlay
+        const topGrad = g.createLinearGradient(0, safeArea, 0, 350);
         topGrad.addColorStop(0, `rgba(${ac.r},${ac.g},${ac.b},0.08)`);
         topGrad.addColorStop(1, "transparent");
         g.fillStyle = topGrad;
-        g.fillRect(0, safeArea, W, 400);
+        g.fillRect(0, safeArea, W, 350);
 
-        // 2. Sticky-style Header
+        // ── Header ──
         g.fillStyle = bg1;
         g.fillRect(0, 0, W, contentStart);
         g.fillStyle = border;
         g.fillRect(0, contentStart - 1, W, 1);
 
-        // Header Elements
-        const headerCenterY = safeArea + headerHeight / 2;
-        const sidePad = 20;
+        const hCY = safeArea + headerH / 2;
 
-        // Hamburger
-        const hamX = isAr ? W - sidePad - 24 : sidePad;
-        g.fillStyle = text;
-        g.fillRect(hamX, headerCenterY - 7, 24, 2);
-        g.fillRect(hamX, headerCenterY, 16, 2);
-        g.fillRect(hamX, headerCenterY + 7, 24, 2);
-
-        // Title
+        // Brand mark
+        const bmX = isAr ? W - sidePad - 30 : sidePad;
+        const bmGrd = g.createLinearGradient(bmX, hCY - 15, bmX + 30, hCY + 15);
+        bmGrd.addColorStop(0, accent);
+        bmGrd.addColorStop(1, accent2);
+        g.fillStyle = bmGrd;
+        g.beginPath();
+        g.roundRect(bmX, hCY - 15, 30, 30, 7);
+        g.fill();
+        g.fillStyle = "#fff";
+        g.font = "bold 13px Outfit";
         g.textAlign = "center";
-        g.font = "bold 17px Cairo, sans-serif";
-        g.fillText(
-          isAr ? "لوحة التحكم" : "Dashboard",
-          W / 2,
-          headerCenterY + 6,
-        );
+        g.fillText("OS", bmX + 15, hCY + 5);
+
+        // Brand name
+        g.fillStyle = text;
+        g.font = "bold 15px Cairo";
+        g.textAlign = isAr ? "end" : "start";
+        g.fillText("StoreOS", isAr ? bmX - 8 : bmX + 40, hCY + 5);
+
+        // Sync dot
+        const syncX = isAr ? W / 2 + 30 : W / 2 - 50;
+        g.fillStyle = "#10b981";
+        g.beginPath();
+        g.arc(syncX, hCY - 2, 4, 0, Math.PI * 2);
+        g.fill();
 
         // Avatar
-        const avSize = 34;
-        const avX = isAr ? sidePad : W - sidePad - avSize;
-        g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.2)`;
-        g.beginPath();
-        g.roundRect(avX, headerCenterY - avSize / 2, avSize, avSize, 10);
-        g.fill();
+        const avX = isAr ? sidePad : W - sidePad - 32;
         g.fillStyle = accent;
-        g.font = "bold 14px Outfit";
-        g.fillText("M", avX + avSize / 2, headerCenterY + 5);
+        g.beginPath();
+        g.roundRect(avX, hCY - 16, 32, 32, 9);
+        g.fill();
+        g.fillStyle = "#fff";
+        g.font = "bold 13px Outfit";
+        g.textAlign = "center";
+        g.fillText("M", avX + 16, hCY + 5);
 
-        // 3. Statistics Grid
-        const gridY = contentStart + 20;
-        const spacing = 14;
-        const cardW = (W - sidePad * 2 - spacing) / 2;
-        const cardH = 95;
+        // ── Greeting ──
+        const greetY = contentStart + 14;
+        g.fillStyle = text;
+        g.font = "bold 15px Cairo, sans-serif";
+        g.textAlign = isAr ? "end" : "start";
+        g.fillText(
+          isAr ? "مساء الخير، محمد 👋" : "Good evening, Mohamed 👋",
+          isAr ? W - sidePad : sidePad,
+          greetY + 8,
+        );
+        g.fillStyle = text3;
+        g.font = "10px Cairo";
+        g.fillText(
+          isAr ? "السبت، ١٧ مايو" : "Saturday, May 17",
+          isAr ? W - sidePad : sidePad,
+          greetY + 24,
+        );
 
-        const stats = [
-          {
-            icon: "📦",
-            label: isAr ? "المنتجات" : "Products",
-            val: "248",
-            clr: accent,
-          },
-          {
-            icon: "🧾",
-            label: isAr ? "الطلبات" : "Orders",
-            val: "93",
-            clr: "#818cf8",
-          },
-          {
-            icon: "👥",
-            label: isAr ? "العملاء" : "Customers",
-            val: "156",
-            clr: "#4ade80",
-          },
-          {
-            icon: "💰",
-            label: isAr ? "الإيراد" : "Revenue",
-            val: "$12K",
-            clr: "#eab308",
-          },
-          {
-            icon: "⚠️",
-            label: isAr ? "نواقص" : "Low Stock",
-            val: "12",
-            clr: "#f97316",
-          },
-          {
-            icon: "💸",
-            label: isAr ? "ديون" : "Dues",
-            val: "$3.2K",
-            clr: "#ef4444",
-          },
+        // ── KPI Cards (2-col grid) ──
+        const kpiY = greetY + 36;
+        const cardSp = 10;
+        const cardW = (W - sidePad * 2 - cardSp) / 2;
+        const cardH = 72;
+
+        const kpis = [
+          { i: "📦", l: isAr ? "المنتجات" : "Products", v: "248", c: "#3b82f6" },
+          { i: "👥", l: isAr ? "العملاء" : "Customers", v: "156", c: "#14b8a6" },
+          { i: "🧾", l: isAr ? "الطلبات" : "Orders", v: "93", c: "#10b981" },
+          { i: "💰", l: isAr ? "الإيراد" : "Revenue", v: "$12K", c: "#f59e0b" },
+          { i: "⚠️", l: isAr ? "نواقص" : "Low Stock", v: "3", c: "#f97316" },
+          { i: "💸", l: isAr ? "ديون" : "Dues", v: "$3.2K", c: "#ef4444" },
         ];
 
-        stats.forEach(({ icon, label, val, clr }, i) => {
-          const row = Math.floor(i / 2);
-          const col = i % 2;
-          const activeCol = isAr ? 1 - col : col;
-
-          const x = sidePad + activeCol * (cardW + spacing);
-          const y = gridY + row * (cardH + spacing);
-          const cRGB = hexToRgb(clr);
+        kpis.forEach(({ i, l, v, c }, idx) => {
+          const row = Math.floor(idx / 2);
+          const col = idx % 2;
+          const acCol = isAr ? 1 - col : col;
+          const cx = sidePad + acCol * (cardW + cardSp);
+          const cy = kpiY + row * (cardH + cardSp);
 
           g.fillStyle = bg2;
           g.beginPath();
-          g.roundRect(x, y, cardW, cardH, 14);
+          g.roundRect(cx, cy, cardW, cardH, 10);
           g.fill();
           g.strokeStyle = border;
           g.stroke();
 
-          // Icon Box
-          const iconX = isAr ? x + cardW - 12 - 32 : x + 12;
-          g.fillStyle = `rgba(${cRGB.r},${cRGB.g},${cRGB.b},0.12)`;
+          // Left accent
+          const lx = isAr ? cx + cardW - 3 : cx;
+          g.fillStyle = c;
           g.beginPath();
-          g.roundRect(iconX, y + 12, 32, 32, 8);
+          g.roundRect(lx, cy + 4, 3, cardH - 8, 2);
           g.fill();
-          g.font = "16px serif";
+
+          // Icon
+          const icX = isAr ? cx + cardW - 14 - 26 : cx + 14;
+          g.fillStyle = `${c}18`;
+          g.beginPath();
+          g.roundRect(icX, cy + 10, 26, 26, 7);
+          g.fill();
+          g.fillStyle = c;
+          g.font = "14px serif";
           g.textAlign = "center";
-          g.fillText(icon, iconX + 16, y + 34);
+          g.fillText(i, icX + 13, cy + 28);
 
-          // Value & Label
-          g.textAlign = isAr ? "end" : "start";
+          // Value
           g.fillStyle = text;
-          g.font = "bold 20px Outfit";
-          g.fillText(val, isAr ? x + cardW - 12 : x + 12, y + 74);
+          g.font = "bold 13px Outfit";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(v, isAr ? cx + cardW - 46 : cx + 46, cy + 26);
 
+          // Label
           g.fillStyle = text2;
-          g.font = "11px Cairo";
-          g.textAlign = isAr ? "start" : "end";
-          g.fillText(label, isAr ? x + 12 : x + cardW - 12, y + 74);
+          g.font = "9px Cairo";
+          g.fillText(l, isAr ? cx + cardW - 46 : cx + 46, cy + 42);
         });
 
-        // 4. Recent Orders List
-        const ordersY = gridY + 3 * (cardH + spacing) + 10;
-        const listH = 430;
+        // ── Status pills ──
+        const pillY = kpiY + 3 * (cardH + cardSp) + 8;
+        const pills = isAr
+          ? [
+              { l: "قيد الانتظار", c: "#f59e0b", n: 14 },
+              { l: "مدفوع جزئياً", c: "#06b6d4", n: 5 },
+            ]
+          : [
+              { l: "Pending", c: "#f59e0b", n: 14 },
+              { l: "Partly Paid", c: "#06b6d4", n: 5 },
+            ];
+
+        let spX = isAr ? W - sidePad : sidePad;
+        pills.forEach(({ l, c, n }) => {
+          const tw = g.measureText(l).width + 48;
+          const px = isAr ? spX - tw : spX;
+          g.fillStyle = `rgba(${hexToRgb(c).r},${hexToRgb(c).g},${hexToRgb(c).b},0.12)`;
+          g.beginPath();
+          g.roundRect(px, pillY, tw, 26, 13);
+          g.fill();
+          g.strokeStyle = `${c}30`;
+          g.lineWidth = 1;
+          g.stroke();
+
+          const dtx = isAr ? px + tw - 16 : px + 14;
+          g.fillStyle = c;
+          g.beginPath();
+          g.arc(dtx, pillY + 13, 4, 0, Math.PI * 2);
+          g.fill();
+
+          g.fillStyle = text;
+          g.font = "10px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(l, isAr ? px + tw - 26 : px + 24, pillY + 18);
+
+          // Count badge
+          const cnW = 18;
+          const cnX = isAr ? px + 6 : px + tw - 20;
+          g.fillStyle = c;
+          g.beginPath();
+          g.roundRect(cnX, pillY + 4, cnW, 18, 9);
+          g.fill();
+          g.fillStyle = bg;
+          g.font = "bold 8px Outfit";
+          g.textAlign = "center";
+          g.fillText(String(n), cnX + cnW / 2, pillY + 16);
+
+          spX = isAr ? px - 8 : px + tw + 8;
+        });
+
+        // Paid pill separate
+        {
+          const l = isAr ? "مكتمل (74)" : "Paid (74)";
+          const c = "#10b981";
+          const tw = g.measureText(l).width + 24;
+          const px = isAr ? spX - tw : spX;
+          g.fillStyle = "rgba(16,185,129,0.12)";
+          g.beginPath();
+          g.roundRect(px, pillY, tw, 26, 13);
+          g.fill();
+          g.strokeStyle = "rgba(16,185,129,0.3)";
+          g.stroke();
+
+          g.fillStyle = "#10b981";
+          g.beginPath();
+          g.arc(px + 14, pillY + 13, 4, 0, Math.PI * 2);
+          g.fill();
+
+          g.fillStyle = text;
+          g.font = "10px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(l, isAr ? px + tw - 10 : px + 24, pillY + 18);
+        }
+
+        // ── Revenue chart panel ──
+        const chY = pillY + 38;
+        const chH = 170;
 
         g.fillStyle = bg2;
         g.beginPath();
-        g.roundRect(sidePad, ordersY, W - sidePad * 2, listH, 16);
+        g.roundRect(sidePad, chY, W - sidePad * 2, chH, 12);
         g.fill();
         g.strokeStyle = border;
         g.stroke();
 
-        // Section Header
-        g.fillStyle = text;
+        // Header
+        g.fillStyle = "#3b82f6";
+        g.font = "12px sans-serif";
         g.textAlign = isAr ? "end" : "start";
-        g.font = "bold 16px Cairo";
+        g.fillText("📈", isAr ? W - 44 : sidePad + 14, chY + 28);
+
+        g.fillStyle = text;
+        g.font = "bold 12px Cairo, sans-serif";
         g.fillText(
-          isAr ? "أحدث الطلبات" : "Recent Orders",
-          isAr ? W - 40 : 40,
-          ordersY + 35,
+          isAr ? "التحصيلات اليومية" : "Daily Collections",
+          isAr ? W - 54 : sidePad + 42,
+          chY + 28,
         );
 
-        const orderData = isAr
+        // Revenue pills
+        const rpY = chY + 34;
+        const revPs = [
+          { l: isAr ? "محصل" : "Collected", v: "$9.5K", c: "#10b981" },
+          { l: isAr ? "متبقي" : "Outstanding", v: "$2.5K", c: "#f59e0b" },
+          { l: isAr ? "ربح" : "Profit", v: "$1.8K", c: "#14b8a6" },
+        ];
+        let rpX = isAr ? W - 20 : sidePad + 8;
+        revPs.forEach(({ l, v, c }) => {
+          const pw = g.measureText(l).width + g.measureText(v).width + 32;
+          const px = isAr ? rpX - pw : rpX;
+          g.fillStyle = `rgba(${hexToRgb(c).r},${hexToRgb(c).g},${hexToRgb(c).b},0.1)`;
+          g.beginPath();
+          g.roundRect(px, rpY, pw, 20, 10);
+          g.fill();
+
+          g.fillStyle = c;
+          g.font = "bold 9px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(l, isAr ? px + pw - 6 : px + 6, rpY + 14);
+          g.font = "bold 9px Outfit";
+          const vx = isAr ? px + 6 : px + pw - 6;
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(v, vx, rpY + 14);
+          rpX = isAr ? px - 6 : px + pw + 6;
+        });
+
+        // Mini bar chart
+        const barsY = rpY + 30;
+        const barsH = chH - (barsY - chY) - 14;
+        const barsW = W - sidePad * 2 - 24;
+        const bData = [45, 62, 38, 72, 55, 80, 68, 90, 75, 48, 85, 70, 95, 60];
+        const bGap = 3;
+        const bW = (barsW - bGap * (bData.length - 1)) / bData.length;
+        bData.forEach((v, i) => {
+          const bh = Math.max(4, (v / 100) * barsH);
+          const bx = isAr
+            ? sidePad + 12 + (bData.length - 1 - i) * (bW + bGap)
+            : sidePad + 12 + i * (bW + bGap);
+          g.fillStyle = i === bData.length - 1 ? accent : isDark ? "rgba(234,28,36,0.2)" : "rgba(234,28,36,0.3)";
+          g.beginPath();
+          g.roundRect(bx, barsY + barsH - bh, bW, bh, 2);
+          g.fill();
+        });
+
+        // ── Recent orders ──
+        const orY = chY + chH + 10;
+
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(sidePad, orY, W - sidePad * 2, 185, 12);
+        g.fill();
+        g.strokeStyle = border;
+        g.stroke();
+
+        g.fillStyle = text;
+        g.font = "bold 12px Cairo, sans-serif";
+        g.textAlign = isAr ? "end" : "start";
+        g.fillText("🧾", isAr ? W - 44 : sidePad + 14, orY + 26);
+        g.fillText(
+          isAr ? "أحدث الطلبات" : "Recent Orders",
+          isAr ? W - 54 : sidePad + 42,
+          orY + 26,
+        );
+
+        const ords = isAr
           ? [
-              { n: "أحمد علي", d: "منذ ٥ دقائق", a: "$120", s: "مكتمل" },
-              { n: "سارة محمد", d: "منذ ساعة", a: "$45", s: "معلق" },
-              { n: "ياسين كمال", d: "منذ ساعتين", a: "$300", s: "مكتمل" },
+              { n: "أحمد علي", d: "10m ago", it: 3, a: "$120", s: "مكتمل", sc: "#10b981" },
+              { n: "محمد سالم", d: "1h ago", it: 1, a: "$85", s: "معلق", sc: "#f59e0b" },
+              { n: "خالد نور", d: "2h ago", it: 5, a: "$200", s: "مكتمل", sc: "#10b981" },
             ]
           : [
-              { n: "Ahmed Ali", d: "5m ago", a: "$120", s: "Paid" },
-              { n: "Sara M.", d: "1h ago", a: "$45", s: "Pending" },
-              { n: "Yassin K.", d: "2h ago", a: "$300", s: "Paid" },
+              { n: "Ahmed Ali", d: "10m ago", it: 3, a: "$120", s: "Paid", sc: "#10b981" },
+              { n: "Mohamed S.", d: "1h ago", it: 1, a: "$85", s: "Pending", sc: "#f59e0b" },
+              { n: "Khaled N.", d: "2h ago", it: 5, a: "$200", s: "Paid", sc: "#10b981" },
             ];
 
-        orderData.forEach((ord, i) => {
-          const rowY = ordersY + 65 + i * 70;
-          g.textAlign = isAr ? "end" : "start";
+        ords.forEach(({ n, d, it, a, s, sc }, i) => {
+          const oY = orY + 40 + i * 46;
+
+          g.fillStyle = bg3;
+          g.beginPath();
+          g.arc(isAr ? W - 38 : sidePad + 22, oY + 14, 12, 0, Math.PI * 2);
+          g.fill();
+          g.fillStyle = text2;
+          g.font = "bold 9px Outfit";
+          g.textAlign = "center";
+          g.fillText(n[0], isAr ? W - 38 : sidePad + 22, oY + 18);
+
+          const nX = isAr ? W - 56 : sidePad + 44;
           g.fillStyle = text;
-          g.font = "bold 14px Cairo";
-          g.fillText(ord.n, isAr ? W - 45 : 45, rowY + 15);
+          g.font = "bold 12px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(n, nX, oY + 11);
+          g.fillStyle = text3;
+          g.font = "9px Cairo";
+          g.fillText(d, nX, oY + 24);
 
           g.fillStyle = text2;
-          g.font = "11px Cairo";
-          g.fillText(ord.d, isAr ? W - 45 : 45, rowY + 34);
-
+          g.font = "9px Cairo";
           g.textAlign = isAr ? "start" : "end";
-          g.fillStyle = text;
-          g.font = "bold 14px Outfit";
-          g.fillText(ord.a, isAr ? 45 : W - 45, rowY + 25);
+          g.fillText(`📦 ${it}`, isAr ? sidePad + 14 : W - 60, oY + 12);
 
-          if (i < orderData.length - 1) {
+          // Badge
+          const bW2 = 52;
+          const bX = isAr ? sidePad + 14 : W - sidePad - 14 - bW2;
+          g.fillStyle = `${sc}18`;
+          g.beginPath();
+          g.roundRect(bX, oY, bW2, 20, 10);
+          g.fill();
+          g.fillStyle = sc;
+          g.font = "bold 8px Cairo";
+          g.textAlign = "center";
+          g.fillText(s, bX + bW2 / 2, oY + 14);
+
+          // Amount above badge
+          g.fillStyle = text;
+          g.font = "bold 12px Outfit";
+          g.textAlign = "center";
+          g.fillText(a, bX + bW2 / 2, oY - 6);
+
+          if (i < ords.length - 1) {
             g.fillStyle = border;
-            g.fillRect(sidePad + 20, rowY + 50, W - 80, 1);
+            g.fillRect(sidePad + 16, oY + 38, W - sidePad * 2 - 32, 1);
           }
         });
 
-        // 5. Debtors Section (Partial visibility for scroll effect)
-        const debtY = ordersY + listH + 20;
+        // ── Debtors section ──
+        const dtY = orY + 185 + 10;
         g.fillStyle = bg2;
         g.beginPath();
-        g.roundRect(sidePad, debtY, W - sidePad * 2, 300, 16);
+        g.roundRect(sidePad, dtY, W - sidePad * 2, 130, 12);
         g.fill();
+        g.strokeStyle = border;
+        g.stroke();
 
         g.fillStyle = "#ef4444";
+        g.font = "12px sans-serif";
         g.textAlign = isAr ? "end" : "start";
-        g.font = "bold 16px Cairo";
+        g.fillText("💸", isAr ? W - 44 : sidePad + 14, dtY + 26);
+        g.fillStyle = text;
+        g.font = "bold 12px Cairo";
         g.fillText(
-          isAr ? "الديون المستحقة" : "Outstanding Dues",
-          isAr ? W - 40 : 40,
-          debtY + 35,
+          isAr ? "أكبر المدينين" : "Top Debtors",
+          isAr ? W - 54 : sidePad + 42,
+          dtY + 26,
         );
 
-        // Return Texture or Canvas
+        const debts = isAr
+          ? [
+              { n: "محمود الدسوقي", a: "$1,450" },
+              { n: "شركة الأمل", a: "$980" },
+              { n: "علي حسن", a: "$760" },
+            ]
+          : [
+              { n: "Mahmoud E.", a: "$1,450" },
+              { n: "Al-Amal Co.", a: "$980" },
+              { n: "Ali H.", a: "$760" },
+            ];
+
+        debts.forEach(({ n, a }, i) => {
+          const dY = dtY + 38 + i * 30;
+
+          g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.12)`;
+          g.beginPath();
+          g.arc(isAr ? W - 38 : sidePad + 22, dY + 10, 10, 0, Math.PI * 2);
+          g.fill();
+          g.fillStyle = accent;
+          g.font = "bold 9px Outfit";
+          g.textAlign = "center";
+          g.fillText(n[0], isAr ? W - 38 : sidePad + 22, dY + 14);
+
+          g.fillStyle = text;
+          g.font = "11px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(n, isAr ? W - 56 : sidePad + 44, dY + 14);
+
+          g.fillStyle = "#ef4444";
+          g.font = "bold 11px Outfit";
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(a, isAr ? sidePad + 14 : W - 20, dY + 14);
+        });
+
         if (typeof THREE !== "undefined") {
           const texture = new THREE.CanvasTexture(c);
           texture.anisotropy = 16;
@@ -2785,9 +3318,9 @@
           ar: "Desktop · Mobile · Offline-first · Dual Currency · P2P Sync",
           en: "Desktop · Mobile · Offline-first · Dual Currency · P2P Sync",
         },
-        heroCta1: { ar: "⬇ تحميل للكمبيوتر", en: "⬇ Download Desktop" },
-        heroCta2: { ar: "تحميل للجوال", en: "Download Mobile" },
-        navCta: { ar: "تحميل المتجر", en: "Get StoreCore" },
+        hcta1: { ar: "wissam.n.najjom@gmail.com", en: "wissam.n.najjom@gmail.com" },
+        hcta2: { ar: "+963 933 446 665", en: "+963 933 446 665" },
+        navCta: { ar: "📧 تواصل معي", en: "📧 Contact Me" },
         b1: { ar: "مزامنة P2P نشطة", en: "P2P sync active" },
         b2: { ar: "يعمل بدون إنترنت", en: "Works offline" },
         canvasHint: {
@@ -2883,20 +3416,20 @@
         s4: { ar: "طرق مزامنة", en: "Sync modes" },
         s5: { ar: "أوفلاين", en: "Offline" },
         ctaMono: {
-          ar: "— واحد لكل الأجهزة —",
-          en: "— one app · every device —",
+          ar: "📬",
+          en: "📬",
         },
-        ctaTitle: { ar: "جاهز لإدارة متجرك؟", en: "Ready to run your store?" },
+        ctaTitle: { ar: "تواصل معي", en: "Get In Touch" },
         ctaSub: {
-          ar: "حمّل التطبيق الآن وابدأ مجاناً. يعمل حتى بدون إنترنت.",
-          en: "Download now and get started. Works fully offline.",
+          ar: "للاستفسار أو التعاون، أنا على بُعد رسالة أو مكالمة",
+          en: "Questions or collaboration? Just a message away.",
         },
         ctaSubEn: {
-          ar: "One app. Every device. Always in sync.",
-          en: "One app. Every device. Always in sync.",
+          ar: "Email · Phone · Let's connect.",
+          en: "Email · Phone · Let's connect.",
         },
-        ctaBtn1: { ar: "⬇ تحميل للكمبيوتر", en: "⬇ Download Desktop" },
-        ctaBtn2: { ar: "تحميل للجوال", en: "Download Mobile" },
+        ctaBtn1l: { ar: "wissam.n.najjom@gmail.com", en: "wissam.n.najjom@gmail.com" },
+        ctaBtn2l: { ar: "+963 933 446 665", en: "+963 933 446 665" },
         sync1lbl: {
           ar: "// بروتوكول المزامنة السحابية",
           en: "// cloud-sync protocol",
