@@ -1,0 +1,202 @@
+
+        const cardW = Math.floor((mainW - hPad * 2 - cardGap * 5) / 6);
+        const cardH = 72;
+
+        cardData.forEach(({ icon, label, val, clr }, i) => {
+          const cx = isAr
+            ? mainX + mainW - hPad - cardW - i * (cardW + cardGap)
+            : mainX + hPad + i * (cardW + cardGap);
+
+          g.fillStyle = bg2;
+          g.beginPath();
+          g.roundRect(cx, cardsY, cardW, cardH, 10);
+          g.fill();
+          g.strokeStyle = border;
+          g.lineWidth = 1;
+          g.stroke();
+
+          // Left accent border
+          const acX = isAr ? cx + cardW - 3 : cx;
+          g.fillStyle = clr;
+          g.beginPath();
+          g.roundRect(acX, cardsY + 6, 3, cardH - 12, 2);
+          g.fill();
+
+          // Icon
+          const icX = isAr ? cx + cardW - 14 - 28 : cx + 14;
+          g.fillStyle = `${clr}18`;
+          g.beginPath();
+          g.roundRect(icX, cardsY + 10, 28, 28, 7);
+          g.fill();
+          g.textAlign = "center";
+          g.font = "14px serif";
+          g.fillStyle = clr;
+          g.fillText(icon, icX + 14, cardsY + 30);
+
+          // Value
+          g.fillStyle = text;
+          g.textAlign = isAr ? "end" : "start";
+          g.font = "bold 14px Outfit";
+          g.fillText(val, isAr ? cx + cardW - 48 : cx + 48, cardsY + 30);
+
+          // Label
+          g.fillStyle = text2;
+          g.font = "9px Cairo";
+          g.fillText(label, isAr ? cx + cardW - 48 : cx + 48, cardsY + 46);
+        });
+
+        /* ── STATUS FILTER PILLS ── */
+        const pillY = 198;
+        const statusPills = isAr
+          ? [
+              { l: "قيد الانتظار", c: "#f59e0b", n: 14 },
+              { l: "مدفوع جزئياً", c: "#06b6d4", n: 5 },
+              { l: "مكتمل", c: "#10b981", n: 74 },
+            ]
+          : [
+              { l: "Pending", c: "#f59e0b", n: 14 },
+              { l: "Partly Paid", c: "#06b6d4", n: 5 },
+              { l: "Paid", c: "#10b981", n: 74 },
+            ];
+
+        let spX = isAr ? mainX + mainW - hPad : mainX + hPad;
+        statusPills.forEach(({ l, c, n }) => {
+          g.font = "11px Cairo, sans-serif";
+          const tw = g.measureText(l).width + g.measureText(String(n)).width + 56;
+          const pX = isAr ? spX - tw : spX;
+
+          g.fillStyle = `rgba(${hexToRgb(c).r},${hexToRgb(c).g},${hexToRgb(c).b},0.12)`;
+          g.beginPath();
+          g.roundRect(pX, pillY, tw, 28, 14);
+          g.fill();
+          g.strokeStyle = `${c}30`;
+          g.lineWidth = 1;
+          g.stroke();
+
+          const dotX = isAr ? pX + tw - 18 : pX + 14;
+          g.fillStyle = c;
+          g.beginPath();
+          g.arc(dotX, pillY + 14, 4, 0, Math.PI * 2);
+          g.fill();
+
+          g.textAlign = isAr ? "end" : "start";
+          g.fillStyle = text;
+          g.font = "11px Cairo";
+          g.fillText(l, isAr ? pX + tw - 28 : pX + 24, pillY + 19);
+
+          // Count badge
+          const nX = isAr ? pX + 8 : pX + tw - 18;
+          g.fillStyle = c;
+          g.font = "bold 9px Cairo";
+          const nw = g.measureText(String(n)).width + 14;
+          g.beginPath();
+          g.roundRect(nX, pillY + 4, nw, 20, 10);
+          g.fill();
+          g.fillStyle = bg;
+          g.textAlign = "center";
+          g.fillText(String(n), nX + nw / 2, pillY + 18);
+
+          spX = isAr ? pX - 10 : pX + tw + 10;
+        });
+
+        /* ── 2-COLUMN MAIN GRID ── */
+        const colY = 238;
+        const colGap = 12;
+        const lColPct = 0.6;
+        const lColW = Math.floor((mainW - hPad * 2 - colGap) * lColPct);
+        const rColW = Math.floor((mainW - hPad * 2 - colGap) * (1 - lColPct));
+        const lColX = isAr ? mainX + mainW - hPad - lColW : mainX + hPad;
+        const rColX = isAr ? mainX + hPad : mainX + hPad + lColW + colGap;
+        const availMain = H - colY - hPad;
+
+        // ── LEFT COLUMN: Revenue Chart ──
+        const chartH = Math.floor(availMain * 0.37);
+        const alertH = 76;
+
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(lColX, colY, lColW, chartH, 12);
+        g.fill();
+
+        // Chart header
+        const chIconX = isAr ? lColX + lColW - 18 - 26 : lColX + 18;
+        g.fillStyle = "rgba(59,130,246,0.12)";
+        g.beginPath();
+        g.roundRect(chIconX, colY + 14, 26, 26, 7);
+        g.fill();
+        g.fillStyle = "#3b82f6";
+        g.textAlign = "center";
+        g.font = "12px sans-serif";
+        g.fillText("📈", chIconX + 13, colY + 33); /* taste-skill-ignore: 3D product screen */
+
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 13px Cairo, sans-serif";
+        g.fillText(
+          isAr ? "التحصيلات اليومية" : "Daily Collections",
+          isAr ? lColX + lColW - 56 : lColX + 56,
+          colY + 33,
+        );
+
+        g.fillStyle = text3;
+        g.font = "10px Cairo";
+        g.fillText(
+          isAr ? "هذا الشهر" : "This month",
+          isAr ? lColX + lColW - 56 : lColX + 56,
+          colY + 48,
+        );
+
+        // Revenue pills
+        const revPills = [
+          { l: isAr ? "محصل" : "Collected", v: "$9.5K", c: "#10b981" },
+          { l: isAr ? "متبقي" : "Outstanding", v: "$2.5K", c: "#f59e0b" },
+          { l: isAr ? "ربح" : "Profit", v: "$1.8K", c: "#14b8a6" },
+        ];
+        const rpY = colY + 50;
+        let rpX = isAr ? lColX + lColW - 16 : lColX + 16;
+        const rpGap = 8;
+        revPills.forEach(({ l, v, c }) => {
+          const pw = g.measureText(l).width + g.measureText(v).width + 34;
+          const px = isAr ? rpX - pw : rpX;
+
+          g.fillStyle = `rgba(${hexToRgb(c).r},${hexToRgb(c).g},${hexToRgb(c).b},0.1)`;
+          g.beginPath();
+          g.roundRect(px, rpY, pw, 22, 11);
+          g.fill();
+
+          g.fillStyle = c;
+          g.font = "bold 10px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(l, isAr ? px + pw - 8 : px + 8, rpY + 16);
+
+          g.font = "bold 10px Outfit";
+          const vx = isAr ? px + 8 : px + pw - 8;
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(v, vx, rpY + 16);
+
+          rpX = isAr ? px - rpGap : px + pw + rpGap;
+        });
+
+        // Bar chart placeholder
+        const barsY = rpY + 34;
+        const barsH = chartH - (barsY - colY) - 16;
+        const barsW = lColW - 32;
+        const numBars = 14;
+        const bGap = 4;
+        const bW = Math.floor((barsW - bGap * (numBars - 1)) / numBars);
+        const barData = [
+          45, 62, 38, 72, 55, 80, 68, 90, 75, 48, 85, 70, 95, 60,
+        ];
+
+        barData.forEach((v, i) => {
+          const bh = Math.max(4, (v / 100) * barsH);
+          const bx = isAr
+            ? lColX + lColW - 16 - (i + 1) * (bW + bGap)
+            : lColX + 16 + i * (bW + bGap);
+          const by = barsY + barsH - bh;
+
+          g.fillStyle = accent;
+          g.beginPath();
+          g.roundRect(bx, by, bW, bh, 3);
+          g.fill();
+        });

@@ -1,0 +1,86 @@
+
+      /* ═══════════════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════════════ */
+      const marqItems = [
+        "Windows",
+        "Android",
+        "Remote Sync",
+        "Offline-first",
+        "P2P Sync",
+        "SP + USD",
+        "Inventory",
+        "Orders",
+        "Customers",
+      ];
+      const mi = document.getElementById("marqueeInner");
+      const allItems = [...marqItems, ...marqItems];
+      allItems.forEach((label) => {
+        const d = document.createElement("div");
+        d.className = "marquee-item";
+        d.innerHTML = `${label}<i>·</i>`;
+        mi.appendChild(d);
+      });
+
+      /* ═══════════════════════════════════════════════
+   PALETTE + THEME + LANG
+═══════════════════════════════════════════════ */
+      const palettes = [
+        { name: "Red", hex: "#e53935", hex2: "#ff6b35", cls: "pal-red" },
+        { name: "Blue", hex: "#2563eb", hex2: "#1d4ed8", cls: "pal-blue" },
+        { name: "Teal", hex: "#0d9488", hex2: "#0891b2", cls: "pal-teal" },
+        { name: "Amber", hex: "#d97706", hex2: "#ea580c", cls: "pal-amber" },
+        { name: "Rose", hex: "#e11d48", hex2: "#be185d", cls: "pal-rose" },
+        {
+          name: "Emerald",
+          hex: "#059669",
+          hex2: "#0d9488",
+          cls: "pal-emerald",
+        },
+      ];
+      let activePal = "pal-red";
+      const sr = document.getElementById("swatchRow");
+      palettes.forEach((p) => {
+        const b = document.createElement("button");
+        b.className = "swatch" + (p.cls === activePal ? " active" : "");
+        b.style.cssText = `background:${p.hex};color:${p.hex}`;
+        b.title = p.name;
+        b.setAttribute("aria-label", p.name);
+        b.onclick = () => setPal(p.cls, p.hex, p.hex2);
+        sr.appendChild(b);
+      });
+
+      function setPal(cls, hex, hex2) {
+        palettes.forEach((p) => document.body.classList.remove(p.cls));
+        document.body.classList.add(cls);
+        activePal = cls;
+        document
+          .querySelectorAll(".swatch")
+          .forEach((s, i) =>
+            s.classList.toggle("active", palettes[i].cls === cls),
+          );
+        if (window.updateThreeColor) updateThreeColor(hex);
+        if (window.updateParticleColor) updateParticleColor(hex);
+        _screenState.accent = hex;
+        _screenState.accent2 = hex2 || hex;
+        if (window.updateScreens) updateScreens();
+      }
+
+      let isDark = true;
+      function setMode(m) {
+        isDark = m === "dark";
+        document.body.setAttribute("data-theme", m);
+        document.getElementById("mDark").classList.toggle("active", isDark);
+        document.getElementById("mLight").classList.toggle("active", !isDark);
+        _screenState.theme = m;
+        if (window.updateScreens) updateScreens();
+      }
+
+      function toggleTP() {
+        document.getElementById("themePanel").classList.toggle("open");
+      }
+      document.addEventListener("click", (e) => {
+        const w = document.querySelector(".tp-wrap");
+        if (w && !w.contains(e.target))
+          document.getElementById("themePanel").classList.remove("open");
+      });

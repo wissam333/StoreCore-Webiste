@@ -1,0 +1,137 @@
+
+        // Debtors panel (right)
+        const debtX = isAr ? P : P + ddW + P;
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(debtX, y, ddW, row2H, 12);
+        g.fill();
+
+        g.fillStyle = "#ef4444";
+        g.font = "12px sans-serif";
+        g.textAlign = isAr ? "end" : "start";
+        g.fillText("💸", isAr ? debtX + ddW - 14 : debtX + 14, y + 24); /* taste-skill-ignore: 3D product screen */
+        g.fillStyle = text;
+        g.font = "bold 10px Cairo";
+        g.fillText(isAr ? "ديون" : "Dues", isAr ? debtX + ddW - 42 : debtX + 42, y + 24);
+
+        const mbDebts = isAr
+          ? [["محمود", "$1.4K"], ["الأمل", "$980"], ["علي", "$760"], ["نور", "$540"], ["سامر", "$320"]]
+          : [["Mahmoud", "$1.4K"], ["Al-Amal", "$980"], ["Ali", "$760"], ["Nour", "$540"], ["Samar", "$320"]];
+        mbDebts.forEach(([nm, am], i) => {
+          const ddy = y + 34 + i * 30;
+          g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.12)`;
+          g.beginPath();
+          g.arc(isAr ? debtX + ddW - 16 : debtX + 16, ddy + 8, 8, 0, Math.PI * 2);
+          g.fill();
+          g.fillStyle = accent;
+          g.font = "bold 7px Outfit";
+          g.textAlign = "center";
+          g.fillText(nm[0], isAr ? debtX + ddW - 16 : debtX + 16, ddy + 12);
+
+          g.fillStyle = text;
+          g.font = "9px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(nm, isAr ? debtX + ddW - 32 : debtX + 32, ddy + 12);
+
+          g.fillStyle = "#ef4444";
+          g.font = "bold 9px Outfit";
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(am, isAr ? debtX + 6 : debtX + ddW - 6, ddy + 12);
+        });
+
+        // ── RECENT ORDERS ──
+        y += row2H + 10;
+        const oH = 354;
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(P, y, W - P * 2, oH, 12);
+        g.fill();
+
+        g.fillStyle = "#3b82f6";
+        g.font = "12px sans-serif";
+        g.textAlign = isAr ? "end" : "start";
+        g.fillText("🧾", isAr ? W - 42 : P + 14, y + 25); /* taste-skill-ignore: 3D product screen */
+        g.fillStyle = text;
+        g.font = "bold 12px Cairo";
+        g.fillText(isAr ? "أحدث الطلبات" : "Recent Orders", isAr ? W - 70 : P + 42, y + 25);
+
+        const mobOrds = isAr
+          ? [
+              ["أحمد علي", "10m", 3, "$120", "مكتمل", "#10b981"],
+              ["محمد سالم", "1h", 1, "$85", "معلق", "#f59e0b"],
+              ["خالد نور", "2h", 5, "$200", "مكتمل", "#10b981"],
+              ["سارة حسن", "4h", 2, "$55", "قيد المعالجة", "#06b6d4"],
+              ["عمر كريم", "5h", 4, "$160", "مكتمل", "#10b981"],
+              ["ليلى محمود", "6h", 1, "$35", "معلق", "#f59e0b"],
+              ["ريم سعيد", "8h", 6, "$280", "مكتمل", "#10b981"],
+            ]
+          : [
+              ["Ahmed Ali", "10m", 3, "$120", "Paid", "#10b981"],
+              ["Mohamed S.", "1h", 1, "$85", "Pending", "#f59e0b"],
+              ["Khaled N.", "2h", 5, "$200", "Paid", "#10b981"],
+              ["Sara H.", "4h", 2, "$55", "Processing", "#06b6d4"],
+              ["Omar K.", "5h", 4, "$160", "Paid", "#10b981"],
+              ["Layla M.", "6h", 1, "$35", "Pending", "#f59e0b"],
+              ["Reem S.", "8h", 6, "$280", "Paid", "#10b981"],
+            ];
+
+        mobOrds.forEach(([nm, dt, it, am, st, sc], i) => {
+          const oy = y + 36 + i * 44;
+
+          // avatar
+          g.fillStyle = bg3;
+          g.beginPath();
+          g.arc(isAr ? W - 36 : P + 20, oy + 10, 10, 0, Math.PI * 2);
+          g.fill();
+          g.fillStyle = text2;
+          g.font = "bold 8px Outfit";
+          g.textAlign = "center";
+          g.fillText(nm[0], isAr ? W - 36 : P + 20, oy + 14);
+
+          // name
+          const nX = isAr ? W - 52 : P + 38;
+          g.fillStyle = text;
+          g.font = "bold 11px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(nm, nX, oy + 9);
+          g.fillStyle = text3;
+          g.font = "8px Cairo";
+          g.fillText(dt, nX, oy + 21);
+
+          // items
+          g.fillStyle = text2;
+          g.font = "8px Cairo";
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(`📦 ${it}`, isAr ? P + 8 : W - 50, oy + 9); /* taste-skill-ignore: 3D product screen */
+
+          // amount
+          g.fillStyle = text;
+          g.font = "bold 11px Outfit";
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(am, isAr ? P + 8 : W - P - 8, oy + 9);
+
+          // badge
+          const bW3 = 44;
+          const bx2 = isAr ? W - P - 8 - bW3 : P + 8;
+          g.fillStyle = sc + "18";
+          g.beginPath();
+          g.roundRect(bx2, oy + 16, bW3, 16, 8);
+          g.fill();
+          g.fillStyle = sc;
+          g.font = "bold 7px Cairo";
+          g.textAlign = "center";
+          g.fillText(st, bx2 + bW3 / 2, oy + 27);
+
+          if (i < mobOrds.length - 1) {
+            g.fillStyle = border;
+            g.fillRect(P + 14, oy + 36, W - P * 2 - 28, 1);
+          }
+        });
+
+        if (typeof THREE !== "undefined") {
+          const texture = new THREE.CanvasTexture(c);
+          texture.anisotropy = 16;
+          return texture;
+        }
+        return c;
+      }

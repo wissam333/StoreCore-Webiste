@@ -1,0 +1,48 @@
+  <body data-theme="dark" class="pal-red">
+    <!-- NAV -->
+    <nav>
+      <a class="nav-logo" href="#">
+        <div class="nav-logo-mark" id="brandMark">S</div>
+        <span class="nav-name">StoreOS</span>
+      </a>
+      <div class="nav-right">
+        <div class="tp-wrap">
+          <button class="pal-btn" onclick="toggleTP()" title="اللون والوضع" aria-label="اللون والوضع"><span></span></button>
+          <div class="tp" id="themePanel">
+            <div class="tp-lbl">وضع العرض</div>
+            <div class="mode-grid">
+              <button class="mode-btn" id="mLight" onclick="setMode('light')">فاتح</button>
+              <button class="mode-btn active" id="mDark" onclick="setMode('dark')">داكن</button>
+            </div>
+            <div class="tp-lbl">اللون</div>
+            <div class="swatch-row" id="swatchRow"></div>
+          </div>
+        </div>
+        <button class="lang-btn" id="langBtn" onclick="toggleLang()" title="English">EN</button>
+        <a class="nav-cta" href="mailto:wissam.n.najjom@gmail.com" id="navCta">تواصل معي</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <canvas id="particle-canvas" aria-hidden="true"></canvas>
+      <div class="hero-copy">
+        <h1 class="hero-h1"><span id="h1a">متجرك في كل مكان</span><br /><span id="h1b">بنقرة واحدة</span></h1>
+        <p class="hero-sub" id="heroSub">
+          نظام إدارة متاجر متكامل يعمل على الكمبيوتر والجوال، مع مزامنة تلقائية وعمل بدون إنترنت ودعم كامل للعملات.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-fill" href="mailto:wissam.n.najjom@gmail.com" id="heroCta1"><span id="hcta1">wissam.n.najjom@gmail.com</span></a>
+          <a class="btn-line" href="tel:+963933446665" id="heroCta2"><span id="hcta2">+963 933 446 665</span></a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <canvas id="three-canvas" role="img" aria-label="نموذج ثلاثي الأبعاد لشاشة متجر على الكمبيوتر والجوال"></canvas>
+        <div class="canvas-hint" id="canvasHint">اسحب للتدوير · drag to rotate</div>
+      </div>
+    </div>
+
+    <!-- MARQUEE -->
+    <div class="marquee-strip">
+      <div class="marquee-inner" id="marqueeInner"></div>
+    </div>

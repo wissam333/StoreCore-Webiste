@@ -1,0 +1,51 @@
+
+      /* ─── CTA / FOOTER / MOTION ─── */
+      .cta-wrap { background: var(--bg1); padding: 8.5rem 2.5rem 9rem; text-align: center; }
+      .cta-h2 {
+        font-size: clamp(2.2rem, 4vw, 3.3rem);
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin-bottom: 0.7rem;
+      }
+      .cta-sub { font-size: 1.06rem; color: var(--text); }
+      .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 2.4rem; }
+
+      footer {
+        padding: 3.2rem 2.5rem 4.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        font-size: 0.92rem;
+        color: var(--text2);
+      }
+
+      .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.65s ease, transform 0.65s ease; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 960px) {
+        nav { padding: 0 1.2rem; }
+        .nav-cta { padding: 9px 18px; }
+        .nav-name { display: none; }
+        .hero-copy { padding: 7rem 1.4rem 1.5rem; }
+        .hero-right { height: 52svh; min-height: 330px; }
+        .section { padding: 5.5rem 1.4rem 2.5rem; }
+        .bcard { grid-column: span 12; }
+        .bcard.wide { grid-template-columns: 1fr; gap: 1.4rem; }
+        .wide-copy { padding: 0; }
+        .bento { gap: 12px; }
+        footer { flex-direction: column; text-align: center; }
+        .cta-wrap { padding: 6rem 1.4rem 7rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .hero-copy > * { animation: none; }
+        .reveal { opacity: 1; transform: none; transition: none; }
+        .marquee-inner { animation: none; }
+        .bcard.visible .frag-bar { animation: none; }
+        .swatch, .btn-fill, .btn-line, .nav-cta { transition: none; }
+      }
+    </style>
+  </head>

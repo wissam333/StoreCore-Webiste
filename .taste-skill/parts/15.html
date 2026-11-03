@@ -1,0 +1,129 @@
+
+        // ── REVENUE CHART ──
+        y += 36;
+        const rH = 230;
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(P, y, W - P * 2, rH, 12);
+        g.fill();
+
+        g.fillStyle = "#3b82f6";
+        g.font = "12px sans-serif";
+        g.textAlign = isAr ? "end" : "start";
+        g.fillText("📈", isAr ? W - 42 : P + 14, y + 27); /* taste-skill-ignore: 3D product screen */
+        g.fillStyle = text;
+        g.font = "bold 12px Cairo";
+        g.fillText(isAr ? "التحصيلات اليومية" : "Daily Collections", isAr ? W - 70 : P + 42, y + 27);
+
+        // revenue pills
+        const rpY = y + 34;
+        const revPills = [
+          [isAr ? "محصل" : "Collected", "$9.5K", "#10b981"],
+          [isAr ? "متبقي" : "Outstanding", "$2.5K", "#f59e0b"],
+          [isAr ? "ربح" : "Profit", "$1.8K", "#14b8a6"],
+        ];
+        let rpX = isAr ? W - P - 4 : P + 4;
+        revPills.forEach(([lb, vl, cl]) => {
+          const pw = g.measureText(lb).width + g.measureText(vl).width + 28;
+          const px = isAr ? rpX - pw : rpX;
+          const cr = hexToRgb(cl);
+          g.fillStyle = `rgba(${cr.r},${cr.g},${cr.b},0.1)`;
+          g.beginPath();
+          g.roundRect(px, rpY, pw, 18, 9);
+          g.fill();
+          g.fillStyle = cl;
+          g.font = "bold 8px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(lb, isAr ? px + pw - 6 : px + 6, rpY + 13);
+          g.font = "bold 8px Outfit";
+          g.textAlign = isAr ? "start" : "end";
+          g.fillText(vl, isAr ? px + 6 : px + pw - 6, rpY + 13);
+          rpX = isAr ? px - 5 : px + pw + 5;
+        });
+
+        // mini bar chart
+        const by2 = rpY + 26;
+        const bh2 = rH - (by2 - y) - 12;
+        const bw2 = W - P * 2 - 20;
+        const bd = [45, 62, 38, 72, 55, 80, 68, 90, 75, 48, 85, 70, 95, 60];
+        const bGap2 = 2.5;
+        const ibW = (bw2 - bGap2 * (bd.length - 1)) / bd.length;
+        bd.forEach((v, i) => {
+          const bbh = Math.max(3, (v / 100) * bh2);
+          const bx = isAr
+            ? P + 10 + (bd.length - 1 - i) * (ibW + bGap2)
+            : P + 10 + i * (ibW + bGap2);
+          g.fillStyle = accent;
+          g.beginPath();
+          g.roundRect(bx, by2 + bh2 - bbh, ibW, bbh, 2);
+          g.fill();
+        });
+
+        // ── DONUT + DEBTORS row ──
+        y += rH + 10;
+        const row2H = 200;
+        const ddW = (W - P * 3) / 2;
+
+        // Donut panel (left)
+        const dX = isAr ? P + ddW + P : P;
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(dX, y, ddW, row2H, 12);
+        g.fill();
+
+        g.fillStyle = "#ef4444";
+        g.font = "12px sans-serif";
+        g.textAlign = isAr ? "end" : "start";
+        g.fillText("🍩", isAr ? dX + ddW - 14 : dX + 14, y + 24); /* taste-skill-ignore: 3D product screen */
+        g.fillStyle = text;
+        g.font = "bold 10px Cairo";
+        g.fillText(isAr ? "حالة" : "Status", isAr ? dX + ddW - 42 : dX + 42, y + 24);
+
+        const donCX = dX + ddW / 2;
+        const donCY = y + row2H / 2 + 6;
+        const donR = 36;
+        const donSegs = [
+          { p: 0.45, c: "#f59e0b" },
+          { p: 0.14, c: "#06b6d4" },
+          { p: 0.41, c: "#10b981" },
+        ];
+        let sa = -Math.PI / 2;
+        donSegs.forEach(({ p, c }) => {
+          const ea = sa + p * Math.PI * 2;
+          g.beginPath();
+          g.arc(donCX, donCY, donR, sa, ea);
+          g.lineWidth = 10;
+          g.strokeStyle = c;
+          g.stroke();
+          sa = ea;
+        });
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.arc(donCX, donCY, donR - 11, 0, Math.PI * 2);
+        g.fill();
+
+        // center total label
+        g.fillStyle = text;
+        g.font = "bold 10px Outfit";
+        g.textAlign = "center";
+        g.fillText("93", donCX, donCY + 4);
+        g.fillStyle = text3;
+        g.font = "5px Cairo";
+        g.fillText(isAr ? "إجمالي" : "Total", donCX, donCY - 8);
+
+        // tiny legend below donut
+        const dlgY = donCY + donR + 8;
+        const dlgData = isAr
+          ? [["معلق", "#f59e0b"], ["جزئي", "#06b6d4"], ["كامل", "#10b981"]]
+          : [["Pend", "#f59e0b"], ["Part", "#06b6d4"], ["Paid", "#10b981"]];
+        dlgData.forEach(([lb, cl], i) => {
+          const lx = dX + 10 + i * ((ddW - 20) / 3);
+          g.fillStyle = cl;
+          g.beginPath();
+          g.roundRect(lx, dlgY, 5, 5, 1);
+          g.fill();
+          g.fillStyle = text3;
+          g.font = "6px Cairo";
+          g.textAlign = "center";
+          g.fillText(lb, lx + 8, dlgY + 5);
+        });

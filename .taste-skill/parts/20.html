@@ -1,0 +1,138 @@
+        const sideL = new THREE.Mesh(
+          new THREE.BoxGeometry(0.04, phoneH - 0.04, phoneD + 0.01),
+          frameSideMat,
+        );
+        sideL.position.x = -phoneW / 2 + 0.02;
+        phoneGroup.add(sideL);
+        const sideRf = new THREE.Mesh(
+          new THREE.BoxGeometry(0.04, phoneH - 0.04, phoneD + 0.01),
+          frameSideMat,
+        );
+        sideRf.position.x = phoneW / 2 - 0.02;
+        phoneGroup.add(sideRf);
+        const sideBotF = new THREE.Mesh(
+          new THREE.BoxGeometry(phoneW + 0.01, 0.04, phoneD + 0.01),
+          frameSideMat,
+        );
+        sideBotF.position.y = -phoneH / 2 + 0.02;
+        phoneGroup.add(sideBotF);
+        const sideTopF = new THREE.Mesh(
+          new THREE.BoxGeometry(phoneW + 0.01, 0.04, phoneD + 0.01),
+          frameSideMat,
+        );
+        sideTopF.position.y = phoneH / 2 - 0.02;
+        phoneGroup.add(sideTopF);
+
+        // Front glass face
+        const frontFace = new THREE.Mesh(
+          new THREE.BoxGeometry(phoneW - 0.04, phoneH - 0.04, 0.012),
+          new THREE.MeshPhysicalMaterial({
+            color: 0x050510,
+            roughness: 0.1, // Slightly less glossy to help contrast
+            metalness: 0.1,
+            transparent: true,
+            opacity: 0.95, // Small transparency helps avoid hard-clipping
+          }),
+        );
+        frontFace.position.z = phoneD / 2 - 0.002;
+        phoneGroup.add(frontFace);
+
+        // Mobile initial texture
+        const mtexInit = new THREE.CanvasTexture(
+          drawMobilePlaceholder("#e53935", "#ff6b35", "dark", "ar"),
+        );
+        mtexInit.anisotropy = 16; // Keeps text sharp when tilted
+
+        const mobileScreenMat = new THREE.MeshStandardMaterial({
+          map: mtexInit,
+          emissiveMap: mtexInit,
+          emissive: new THREE.Color(1, 1, 1),
+          emissiveIntensity: 0.6,
+          roughness: 0.02,
+          metalness: 0,
+          // --- THE FIX: POLYGON OFFSET ---
+          polygonOffset: true,
+          polygonOffsetFactor: -4, // Higher negative = pushes closer to camera
+          polygonOffsetUnits: -4,
+          depthTest: true,
+          depthWrite: true,
+        });
+        window._mobileScreenMat = mobileScreenMat;
+
+        // Screen plane — faces +Z (forward)
+        const pScreen = new THREE.Mesh(
+          new THREE.PlaneGeometry(phoneW - 0.1, phoneH - 0.1),
+          mobileScreenMat,
+        );
+
+        // Screen faces +Z (forward toward camera), no flip needed
+        pScreen.position.z = phoneD / 2 + 0.008;
+        phoneGroup.add(pScreen);
+
+        // Dynamic Island
+        const islandMat = new THREE.MeshStandardMaterial({
+          color: 0x000000,
+          roughness: 0.9,
+        });
+        const island = new THREE.Mesh(
+          new THREE.BoxGeometry(0.28, 0.06, 0.015),
+          islandMat,
+        );
+        island.position.set(0, phoneH / 2 - 0.12, phoneD / 2 + 0.004);
+        phoneGroup.add(island);
+
+        // Side buttons
+        const btnMat = new THREE.MeshPhysicalMaterial({
+          color: 0x1a1a28,
+          metalness: 0.92,
+          roughness: 0.15,
+        });
+        [0.22, -0.05, -0.28].forEach((by) => {
+          const btn = new THREE.Mesh(
+            new THREE.BoxGeometry(0.028, 0.18, 0.08),
+            btnMat,
+          );
+          btn.position.set(-phoneW / 2 - 0.008, by, 0);
+          phoneGroup.add(btn);
+        });
+        const pwrBtn = new THREE.Mesh(
+          new THREE.BoxGeometry(0.028, 0.22, 0.08),
+          btnMat,
+        );
+        pwrBtn.position.set(phoneW / 2 + 0.008, 0.15, 0);
+        phoneGroup.add(pwrBtn);
+
+        // Port
+        const port = new THREE.Mesh(
+          new THREE.BoxGeometry(0.18, 0.025, 0.02),
+          new THREE.MeshStandardMaterial({ color: 0x0a0a12, roughness: 0.9 }),
+        );
+        port.position.set(0, -phoneH / 2 - 0.002, phoneD / 2 - 0.01);
+        phoneGroup.add(port);
+
+        // Speaker dots
+        [-0.28, 0.28].forEach((px) => {
+          for (let d = 0; d < 4; d++) {
+            const dot = new THREE.Mesh(
+              new THREE.CircleGeometry(0.012, 8),
+              new THREE.MeshStandardMaterial({
+                color: 0x0a0a14,
+                roughness: 0.9,
+              }),
+            );
+            dot.position.set(
+              px + d * 0.055 - 0.055 * 1.5,
+              -phoneH / 2 - 0.001,
+              phoneD / 2 + 0.001,
+            );
+            phoneGroup.add(dot);
+          }
+        });
+
+        // Home indicator
+        const homeBar = new THREE.Mesh(
+          new THREE.BoxGeometry(0.3, 0.02, 0.008),
+          new THREE.MeshStandardMaterial({ color: 0x3a3a55, roughness: 0.35 }),
+        );
+        homeBar.position.set(0, -phoneH / 2 + 0.1, phoneD / 2 + 0.003);
+        phoneGroup.add(homeBar);

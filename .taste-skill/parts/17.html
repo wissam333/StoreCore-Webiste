@@ -1,0 +1,24 @@
+
+      /* ─── Expose updater ─── */
+      window.updateScreens = function () {
+        const { lang, theme, accent, accent2 } = _screenState;
+
+        // Desktop texture
+        const dtex = new THREE.CanvasTexture(
+          drawDesktopPlaceholder(accent, accent2, theme, lang),
+        );
+        //   dtex.flipY = false;
+        if (window._desktopScreenMat) {
+          window._desktopScreenMat.map = dtex;
+          window._desktopScreenMat.emissiveMap = dtex;
+          window._desktopScreenMat.needsUpdate = true;
+        }
+
+        // Mobile texture
+        const mtex = drawMobilePlaceholder(accent, accent2, theme, lang);
+        if (window._mobileScreenMat) {
+          window._mobileScreenMat.map = mtex;
+          window._mobileScreenMat.emissiveMap = mtex;
+          window._mobileScreenMat.needsUpdate = true;
+        }
+      };

@@ -1,0 +1,115 @@
+
+      /* ═══════════════════════════════════════════════
+   LANGUAGE
+═══════════════════════════════════════════════ */
+      let isAr = true;
+      const T = {
+        h1a: { ar: "متجرك في كل مكان", en: "Your store everywhere" },
+        h1b: { ar: "بنقرة واحدة", en: "one click away" },
+        heroSub: {
+          ar: "نظام إدارة متاجر متكامل يعمل على الكمبيوتر والجوال، مع مزامنة تلقائية وعمل بدون إنترنت ودعم كامل للعملات.",
+          en: "A complete store management system for desktop and mobile — auto sync, offline, dual currency.",
+        },
+        hcta1: { ar: "wissam.n.najjom@gmail.com", en: "wissam.n.najjom@gmail.com" },
+        hcta2: { ar: "+963 933 446 665", en: "+963 933 446 665" },
+        navCta: { ar: "تواصل معي", en: "Contact me" },
+        canvasHint: {
+          ar: "اسحب للتدوير · drag to rotate",
+          en: "drag to rotate",
+        },
+        featTitle: {
+          ar: "كل ما تحتاجه في متجر واحد",
+          en: "Everything your store needs",
+        },
+        featSub: {
+          ar: "من إنشاء الطلبات إلى متابعة الديون والتقارير المالية، وتتبع كامل للمخزون والعملاء.",
+          en: "From orders to dues tracking and financial reports, with full inventory and customer records.",
+        },
+        f1t: { ar: "إدارة المنتجات", en: "Products & Inventory" },
+        f1d: {
+          ar: "تتبع المخزون والباركود والأسعار بالليرة والدولار، مع تنبيهات انخفاض المخزون.",
+          en: "Track stock, barcodes, prices in SP & USD, low-stock alerts.",
+        },
+        f2t: { ar: "الطلبات والمدفوعات", en: "Orders & Payments" },
+        f2d: {
+          ar: "إنشاء طلبات متعددة الدفعات مع تتبع الأقساط وتسجيل كل دفعة.",
+          en: "Multi-payment orders with installment tracking.",
+        },
+        f3t: { ar: "ملفات العملاء", en: "Customer Profiles" },
+        f3d: {
+          ar: "سجل كامل لكل عميل: الطلبات والديون والمشتريات.",
+          en: "Full history per customer: orders, dues, total spent.",
+        },
+        f4t: { ar: "تتبع الديون", en: "Dues Tracking" },
+        f4d: {
+          ar: "تقرير المديونيات مع تصنيف أكبر المدينين.",
+          en: "Dues report with top-debtor ranking.",
+        },
+        f5t: { ar: "التقارير", en: "Reports & Dashboard" },
+        f5d: {
+          ar: "لوحة إحصائية تتحدث فور المزامنة مع مخططات الإيرادات.",
+          en: "Live dashboard that refreshes on every sync.",
+        },
+        f6t: { ar: "مزامنة P2P", en: "P2P Device Sync" },
+        f6d: {
+          ar: "مزامنة مباشرة بين الأجهزة عبر QR code بدون إنترنت. WebRTC يربط الجهازين في ثوانٍ.",
+          en: "Direct device-to-device sync via QR code, no internet needed.",
+        },
+        ctaTitle: { ar: "تواصل معي", en: "Get In Touch" },
+        ctaSub: {
+          ar: "للاستفسار أو التعاون، أنا على بُعد رسالة أو مكالمة",
+          en: "Questions or collaboration? Just a message away.",
+        },
+        ctaBtn1l: { ar: "wissam.n.najjom@gmail.com", en: "wissam.n.najjom@gmail.com" },
+        ctaBtn2l: { ar: "+963 933 446 665", en: "+963 933 446 665" },
+      };
+
+      function applyLang(lang) {
+        document.documentElement.setAttribute("lang", lang);
+        document.documentElement.setAttribute(
+          "dir",
+          lang === "ar" ? "rtl" : "ltr",
+        );
+        Object.entries(T).forEach(([id, t]) => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = t[lang];
+        });
+        _screenState.lang = lang;
+        if (window.updateScreens) updateScreens();
+      }
+
+      function toggleLang() {
+        isAr = !isAr;
+        applyLang(isAr ? "ar" : "en");
+        document.getElementById("langBtn").textContent = isAr ? "EN" : "ع";
+      }
+
+      /* ═══════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════ */
+      const obs = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              const el = e.target;
+              const sibs = [...el.parentElement.children].filter((n) =>
+                n.classList.contains("reveal"),
+              );
+              el.style.transitionDelay = sibs.indexOf(el) * 80 + "ms";
+              el.classList.add("visible");
+              setTimeout(() => (el.style.transitionDelay = ""), 900);
+              obs.unobserve(el);
+            }
+          }),
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+
+      /* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+      setPal("pal-red", "#e53935", "#ff6b35");
+      applyLang("ar");
+    </script>
+  </body>
+</html>

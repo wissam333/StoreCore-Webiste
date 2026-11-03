@@ -1,0 +1,143 @@
+
+        // Back camera module
+        const camModule = new THREE.Mesh(
+          new THREE.BoxGeometry(0.42, 0.42, 0.04),
+          new THREE.MeshPhysicalMaterial({
+            color: 0x101018,
+            metalness: 0.85,
+            roughness: 0.2,
+          }),
+        );
+        camModule.position.set(-0.3, phoneH / 2 - 0.32, -phoneD / 2 - 0.018);
+        phoneGroup.add(camModule);
+        [
+          [-0.09, -0.09],
+          [0.09, -0.09],
+          [-0.09, 0.09],
+        ].forEach(([lx, ly]) => {
+          const lens = new THREE.Mesh(
+            new THREE.CircleGeometry(0.07, 16),
+            new THREE.MeshPhysicalMaterial({
+              color: 0x060610,
+              roughness: 0,
+              metalness: 0.2,
+            }),
+          );
+          lens.position.set(
+            camModule.position.x + lx,
+            camModule.position.y + ly,
+            -phoneD / 2 - 0.036,
+          );
+          lens.rotation.y = Math.PI;
+          phoneGroup.add(lens);
+        });
+
+        phoneGroup.position.set(2.3, -0.1, 0.6);
+        scene.add(phoneGroup);
+
+        /* ── LIGHTS ── */
+        scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
+        keyLight.position.set(8, 10, 8);
+        keyLight.castShadow = true;
+        scene.add(keyLight);
+
+        const fillLight = new THREE.DirectionalLight(0x8888ff, 0.5);
+        fillLight.position.set(-8, 2, -5);
+        scene.add(fillLight);
+
+        const rimLight = new THREE.DirectionalLight(0xff4433, 0.35);
+        rimLight.position.set(0, -5, -6);
+        scene.add(rimLight);
+
+        const accentPt = new THREE.PointLight(0xe53935, 3, 8);
+        accentPt.position.set(0, 3, 4);
+        scene.add(accentPt);
+
+        const glowL = new THREE.PointLight(0x4466ff, 0.5, 5);
+        glowL.position.set(-1.6, 0.6, 1.5);
+        scene.add(glowL);
+        const glowP = new THREE.PointLight(0x4466ff, 0.4, 4);
+        glowP.position.set(2.3, -0.1, 1.5);
+        scene.add(glowP);
+
+        phoneBod.renderOrder = 1;
+        frontFace.renderOrder = 2;
+        pScreen.renderOrder = 3;
+
+        /* ── INTERACTION ── */
+        let isDrag = false,
+          prev = { x: 0, y: 0 },
+          tRX = 0,
+          tRY = 0,
+          cRX = 0,
+          cRY = 0;
+        canvas.addEventListener("mousedown", (e) => {
+          isDrag = true;
+          prev = { x: e.clientX, y: e.clientY };
+          e.preventDefault();
+        });
+        window.addEventListener("mouseup", () => (isDrag = false));
+        window.addEventListener("mousemove", (e) => {
+          if (!isDrag) return;
+          tRY += (e.clientX - prev.x) * 0.009;
+          tRX += (e.clientY - prev.y) * 0.009;
+          tRX = Math.max(-0.45, Math.min(0.45, tRX));
+          prev = { x: e.clientX, y: e.clientY };
+        });
+        let pTouch = null;
+        canvas.addEventListener(
+          "touchstart",
+          (e) => {
+            pTouch = e.touches[0];
+          },
+          { passive: true },
+        );
+        canvas.addEventListener(
+          "touchmove",
+          (e) => {
+            if (!pTouch) return;
+            tRY += (e.touches[0].clientX - pTouch.clientX) * 0.011;
+            tRX += (e.touches[0].clientY - pTouch.clientY) * 0.011;
+            tRX = Math.max(-0.4, Math.min(0.4, tRX));
+            pTouch = e.touches[0];
+          },
+          { passive: true },
+        );
+        canvas.addEventListener("touchend", () => (pTouch = null));
+
+        /* ── ANIMATE ── */
+        let t = 0;
+        function animate() {
+          requestAnimationFrame(animate);
+          t += 0.008;
+          cRX += (tRX - cRX) * 0.07;
+          cRY += (tRY - cRY) * 0.07;
+          if (!isDrag) tRY += 0.002;
+
+          laptopGroup.rotation.y = cRY * 0.5 + Math.sin(t * 0.32) * 0.04;
+          laptopGroup.rotation.x = cRX * 0.3 + Math.sin(t * 0.22) * 0.018;
+          laptopGroup.position.y = 0.6 + Math.sin(t * 0.38) * 0.08;
+
+          phoneGroup.rotation.y = cRY * 0.7 + Math.sin(t * 0.28 + 1.3) * 0.07;
+          phoneGroup.rotation.x = cRX * 0.4 + Math.sin(t * 0.33 + 0.7) * 0.022;
+          phoneGroup.position.y = -0.1 + Math.sin(t * 0.48 + 1.1) * 0.1;
+
+          accentPt.intensity = 2.5 + Math.sin(t * 1.2) * 0.5;
+
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        window.updateThreeColor = function (hex) {
+          const n = parseInt(hex.replace("#", ""), 16);
+          accentPt.color.setHex(n);
+          rimLight.color.setHex(n);
+          const r = ((n >> 16) & 0xff) / 255,
+            g2 = ((n >> 8) & 0xff) / 255,
+            b = (n & 0xff) / 255;
+          glowL.color.setRGB(r * 0.2 + 0.05, g2 * 0.2 + 0.05, b * 0.2 + 0.4);
+          glowP.color.setRGB(r * 0.2 + 0.05, g2 * 0.2 + 0.05, b * 0.2 + 0.4);
+        };
+      })();

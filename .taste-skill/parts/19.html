@@ -1,0 +1,228 @@
+
+      /* ═══════════════════════════════════════════════
+   THREE.JS — FIXED 3D SCENE
+   - Desktop: screen only (no keyboard)
+   - Mobile: correct orientation (front facing forward)
+   - Canvas fills container fully
+═══════════════════════════════════════════════ */
+      (function () {
+        const canvas = document.getElementById("three-canvas");
+        const container = canvas.parentElement;
+        const scene = new THREE.Scene();
+        const renderer = new THREE.WebGLRenderer({
+          canvas,
+          antialias: true,
+          alpha: true,
+        });
+        renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.1;
+
+        const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+        camera.position.set(0, 0.5, 10.5);
+
+        function resize() {
+          const w = container.clientWidth;
+          const h = container.clientHeight;
+          renderer.setSize(w, h);
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+        }
+        resize();
+        window.addEventListener("resize", resize);
+
+        /* ── Materials ── */
+        const bodyMat = new THREE.MeshPhysicalMaterial({
+          color: 0x1a1a22,
+          metalness: 0.92,
+          roughness: 0.18,
+          reflectivity: 0.85,
+        });
+        const rimMat = new THREE.MeshPhysicalMaterial({
+          color: 0x2e2e3c,
+          metalness: 0.95,
+          roughness: 0.08,
+        });
+        const hingeMatA = new THREE.MeshPhysicalMaterial({
+          color: 0x242432,
+          metalness: 0.88,
+          roughness: 0.25,
+        });
+        const hingeMat = new THREE.MeshPhysicalMaterial({
+          color: 0x2a2a38,
+          metalness: 0.96,
+          roughness: 0.1,
+        });
+
+        /* ─────────────────────────────────────────────
+     DESKTOP — Screen-only display (monitor style)
+     A floating screen panel, no base/keyboard
+  ───────────────────────────────────────────── */
+        const laptopGroup = new THREE.Group();
+
+        // Initial desktop texture (placeholder)
+        const dtexInit = new THREE.CanvasTexture(
+          drawDesktopPlaceholder("#e53935", "#ff6b35", "dark", "ar"),
+        );
+        dtexInit.flipY = false;
+
+        const desktopScreenMat = new THREE.MeshStandardMaterial({
+          map: dtexInit,
+          emissiveMap: dtexInit,
+          emissive: new THREE.Color(1, 1, 1),
+          emissiveIntensity: 0.6,
+          roughness: 0.02,
+          metalness: 0,
+        });
+        window._desktopScreenMat = desktopScreenMat;
+
+        // ── LID / Screen panel
+        const lidGroup = new THREE.Group();
+
+        // Outer aluminum shell
+        const lidBack = new THREE.Mesh(
+          new THREE.BoxGeometry(5.8, 3.65, 0.11),
+          bodyMat,
+        );
+        lidGroup.add(lidBack);
+
+        // Rim edges
+        const rimTop = new THREE.Mesh(
+          new THREE.BoxGeometry(5.8, 0.04, 0.13),
+          rimMat,
+        );
+        rimTop.position.y = 1.83;
+        lidGroup.add(rimTop);
+        const rimBot = new THREE.Mesh(
+          new THREE.BoxGeometry(5.8, 0.04, 0.13),
+          rimMat,
+        );
+        rimBot.position.y = -1.83;
+        lidGroup.add(rimBot);
+        const rimL = new THREE.Mesh(
+          new THREE.BoxGeometry(0.04, 3.65, 0.13),
+          rimMat,
+        );
+        rimL.position.x = -2.9;
+        lidGroup.add(rimL);
+        const rimR = new THREE.Mesh(
+          new THREE.BoxGeometry(0.04, 3.65, 0.13),
+          rimMat,
+        );
+        rimR.position.x = 2.9;
+        lidGroup.add(rimR);
+
+        // Inner bezel
+        const bezelFace = new THREE.Mesh(
+          new THREE.BoxGeometry(5.6, 3.45, 0.06),
+          new THREE.MeshPhysicalMaterial({
+            color: 0x070710,
+            metalness: 0.1,
+            roughness: 0.7,
+          }),
+        );
+        bezelFace.position.z = 0.085;
+        lidGroup.add(bezelFace);
+
+        // Screen plane
+        const screenMesh = new THREE.Mesh(
+          new THREE.PlaneGeometry(5.2, 3.1),
+          desktopScreenMat,
+        );
+        screenMesh.position.z = 0.12;
+        lidGroup.add(screenMesh);
+
+        // Webcam dot
+        const camDot = new THREE.Mesh(
+          new THREE.CircleGeometry(0.055, 20),
+          new THREE.MeshStandardMaterial({
+            color: 0x1c1c2c,
+            roughness: 0.9,
+            emissive: new THREE.Color(0.05, 0.05, 0.1),
+          }),
+        );
+        camDot.position.set(0, 1.67, 0.12);
+        lidGroup.add(camDot);
+
+        const camRing = new THREE.Mesh(
+          new THREE.RingGeometry(0.055, 0.075, 20),
+          new THREE.MeshStandardMaterial({
+            color: 0x2a2a3a,
+            side: THREE.DoubleSide,
+          }),
+        );
+        camRing.position.set(0, 1.67, 0.12);
+        lidGroup.add(camRing);
+
+        // Back logo glow
+        const logoGlow = new THREE.Mesh(
+          new THREE.CircleGeometry(0.35, 32),
+          new THREE.MeshStandardMaterial({
+            color: 0x181820,
+            roughness: 0.6,
+            metalness: 0.3,
+            emissive: new THREE.Color(0.08, 0.04, 0.04),
+            emissiveIntensity: 0.3,
+          }),
+        );
+        logoGlow.position.set(0, 0.3, -0.058);
+        logoGlow.rotation.y = Math.PI;
+        lidGroup.add(logoGlow);
+
+        // A thin stand at the bottom of the screen panel
+        const standBar = new THREE.Mesh(
+          new THREE.BoxGeometry(1.2, 0.12, 0.8),
+          bodyMat,
+        );
+        standBar.position.set(0, -1.88, -0.35);
+        lidGroup.add(standBar);
+
+        const standFoot = new THREE.Mesh(
+          new THREE.BoxGeometry(2.4, 0.08, 0.18),
+          new THREE.MeshPhysicalMaterial({
+            color: 0x141420,
+            metalness: 0.88,
+            roughness: 0.22,
+          }),
+        );
+        standFoot.position.set(0, -1.94, 0.5);
+        lidGroup.add(standFoot);
+
+        lidGroup.position.y = 0;
+        lidGroup.rotation.x = -0.06;
+
+        laptopGroup.add(lidGroup);
+        laptopGroup.position.set(-1.6, 0.6, 0);
+        scene.add(laptopGroup);
+
+        /* ─────────────────────────────────────────────
+     PHONE — Correct orientation (front facing camera)
+     Screen faces FORWARD (+Z direction)
+  ───────────────────────────────────────────── */
+        const phoneGroup = new THREE.Group();
+
+        const phoneW = 1.22,
+          phoneH = 2.62,
+          phoneD = 0.135;
+
+        // Body shell
+        const phoneBod = new THREE.Mesh(
+          new THREE.BoxGeometry(phoneW, phoneH, phoneD),
+          new THREE.MeshPhysicalMaterial({
+            color: 0x0c0c14,
+            metalness: 0.97,
+            roughness: 0.06,
+            reflectivity: 0.95,
+          }),
+        );
+        phoneBod.castShadow = true;
+        phoneGroup.add(phoneBod);
+
+        // Frame strips
+        const frameSideMat = new THREE.MeshPhysicalMaterial({
+          color: 0x1e1e2e,
+          metalness: 0.95,
+          roughness: 0.12,
+        });

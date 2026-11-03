@@ -1,0 +1,249 @@
+        const W = 1280;
+        const H = 800;
+        const c = document.createElement("canvas");
+        c.width = W;
+        c.height = H;
+        const g = c.getContext("2d");
+        const isDark = theme === "dark";
+        const isAr = lang === "ar";
+
+        const bg = isDark ? "#08080c" : "#f4f4f8";
+        const bg1 = isDark ? "#0e0e14" : "#ebebf0";
+        const bg2 = isDark ? "#141420" : "#e0e0e8";
+        const bg3 = isDark ? "#1c1c2a" : "#d4d4de";
+        const text = isDark ? "#f2f2f8" : "#222";
+        const text2 = isDark ? "#9090a8" : "#555";
+        const text3 = isDark ? "#4a4a60" : "#999";
+        const border = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.12)";
+        const ac = hexToRgb(accent);
+
+        g.fillStyle = bg;
+        g.fillRect(0, 0, W, H);
+
+        const grd = g.createLinearGradient(0, 0, W, 0);
+        grd.addColorStop(0, `rgba(${ac.r},${ac.g},${ac.b},0.04)`);
+        grd.addColorStop(1, `rgba(${ac.r},${ac.g},${ac.b},0.01)`);
+        g.fillStyle = grd;
+        g.fillRect(0, 0, W, H);
+
+        const sideW = 260;
+        const sideX = isAr ? W - sideW : 0;
+        const mainX = isAr ? 0 : sideW;
+        const mainW = W - sideW;
+
+        /* ── SIDEBAR ── */
+        g.fillStyle = bg1;
+        g.fillRect(sideX, 0, sideW, H);
+
+        g.fillStyle = accent;
+        g.fillRect(isAr ? sideX + sideW - 3 : sideX, 0, 3, H);
+
+        // Brand at top of sidebar
+        const brandMarkX = isAr ? sideX + sideW - 38 : sideX + 14;
+        g.fillStyle = `linear-gradient(135deg, ${accent}, ${accent2})`;
+        g.beginPath();
+        g.roundRect(brandMarkX, 12, 34, 34, 9);
+        const bmGrd = g.createLinearGradient(brandMarkX, 12, brandMarkX + 34, 46);
+        bmGrd.addColorStop(0, accent);
+        bmGrd.addColorStop(1, accent2);
+        g.fillStyle = bmGrd;
+        g.beginPath();
+        g.roundRect(brandMarkX, 12, 34, 34, 9);
+        g.fill();
+        g.fillStyle = "#fff";
+        g.font = "bold 15px Outfit";
+        g.textAlign = "center";
+        g.fillText("OS", brandMarkX + 17, 34);
+
+        const brandTxtX = isAr ? sideX + sideW - 82 : sideX + 60;
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 17px Cairo, sans-serif";
+        g.fillText("StoreOS", brandTxtX, 36);
+
+        // Divider
+        g.fillStyle = border;
+        g.fillRect(sideX + 14, 56, sideW - 28, 1);
+
+        // User card
+        const ucY = 68;
+        const avSize = 34;
+        const avCx = isAr ? sideX + sideW - 34 : sideX + 34;
+        g.fillStyle = accent;
+        g.beginPath();
+        g.arc(avCx, ucY + 17, 17, 0, Math.PI * 2);
+        g.fill();
+        g.fillStyle = "#fff";
+        g.font = "bold 14px Outfit";
+        g.textAlign = "center";
+        g.fillText("M", avCx, ucY + 22);
+
+        const uTxtX = isAr ? sideX + sideW - 64 : sideX + 64;
+        g.textAlign = isAr ? "end" : "start";
+        g.fillStyle = text;
+        g.font = "bold 13px Cairo, sans-serif";
+        g.fillText(isAr ? "محمد علي" : "Mohamed Ali", uTxtX, ucY + 12);
+        g.fillStyle = text2;
+        g.font = "11px Cairo, sans-serif";
+        g.fillText(isAr ? "مدير النظام" : "System Admin", uTxtX, ucY + 28);
+
+        g.fillStyle = border;
+        g.fillRect(sideX + 14, ucY + 46, sideW - 28, 1);
+
+        // Sidebar nav items with icons
+        const navItems = isAr
+          ? [
+              { l: "لوحة التحكم", i: "📊" }, /* taste-skill-ignore: 3D product screen */
+              { l: "نقطة البيع", i: "🏪" }, /* taste-skill-ignore: 3D product screen */
+              { l: "الطلبات", i: "🧾" }, /* taste-skill-ignore: 3D product screen */
+              { l: "المنتجات", i: "📦" }, /* taste-skill-ignore: 3D product screen */
+              { l: "العملاء", i: "👥" }, /* taste-skill-ignore: 3D product screen */
+              { l: "الديون", i: "💸" }, /* taste-skill-ignore: 3D product screen */
+              { l: "التقارير", i: "📈" }, /* taste-skill-ignore: 3D product screen */
+              { l: "الإعدادات", i: "⚙️" }, /* taste-skill-ignore: 3D product screen */
+            ]
+          : [
+              { l: "Dashboard", i: "📊" }, /* taste-skill-ignore: 3D product screen */
+              { l: "POS", i: "🏪" }, /* taste-skill-ignore: 3D product screen */
+              { l: "Orders", i: "🧾" }, /* taste-skill-ignore: 3D product screen */
+              { l: "Products", i: "📦" }, /* taste-skill-ignore: 3D product screen */
+              { l: "Customers", i: "👥" }, /* taste-skill-ignore: 3D product screen */
+              { l: "Dues", i: "💸" }, /* taste-skill-ignore: 3D product screen */
+              { l: "Reports", i: "📈" }, /* taste-skill-ignore: 3D product screen */
+              { l: "Settings", i: "⚙️" }, /* taste-skill-ignore: 3D product screen */
+            ];
+
+        navItems.forEach(({ l, i }, idx) => {
+          const iY = 130 + idx * 46;
+          const isActive = idx === 0;
+
+          if (isActive) {
+            g.fillStyle = `rgba(${ac.r},${ac.g},${ac.b},0.12)`;
+            g.beginPath();
+            g.roundRect(sideX + 10, iY, sideW - 20, 38, 10);
+            g.fill();
+          }
+
+          const iconX = isAr ? sideX + sideW - 48 : sideX + 18;
+          g.fillStyle = isActive ? accent : text2;
+          g.textAlign = "center";
+          g.font = "15px serif";
+          g.fillText(i, iconX + 8, iY + 26);
+
+          const labelX = isAr ? sideX + sideW - 64 : sideX + 52;
+          g.textAlign = isAr ? "end" : "start";
+          g.fillStyle = isActive ? text : text2;
+          g.font = `${isActive ? "bold " : " "}13px Cairo, sans-serif`;
+          g.fillText(l, labelX, iY + 26);
+        });
+
+        /* ── TOP NAVBAR ── */
+        g.fillStyle = bg1;
+        g.fillRect(mainX, 0, mainW, 56);
+        g.fillStyle = border;
+        g.fillRect(mainX, 55, mainW, 1);
+
+        // Search bar
+        const searchW = 240;
+        const searchX = mainX + mainW / 2 - searchW / 2;
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(searchX, 12, searchW, 32, 8);
+        g.fill();
+        g.fillStyle = text3;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "12px Cairo, sans-serif";
+        g.fillText(
+          isAr ? "🔍 بحث..." : "🔍 Search...", /* taste-skill-ignore: 3D product screen */
+          isAr ? searchX + searchW - 14 : searchX + 14,
+          33,
+        );
+
+        // Sync pill
+        const syncPillX = isAr ? mainX + mainW - 180 : mainX + mainW - 180;
+        g.fillStyle = isDark ? "rgba(16,185,129,0.12)" : "rgba(16,185,129,0.15)";
+        g.beginPath();
+        g.roundRect(syncPillX, 14, 90, 28, 14);
+        g.fill();
+        g.strokeStyle = "rgba(16,185,129,0.3)";
+        g.lineWidth = 1;
+        g.stroke();
+        g.fillStyle = "#10b981";
+        g.font = "bold 11px Cairo, sans-serif";
+        g.textAlign = "start";
+        g.fillText("✓", syncPillX + 12, 33); /* taste-skill-ignore: 3D product screen */
+        g.fillText(isAr ? "مزامن" : "Synced", syncPillX + 30, 33);
+
+        // Avatar in top bar
+        const topAvSize = 32;
+        const topAvX = isAr ? mainX + 18 : mainX + mainW - 18 - topAvSize;
+        g.fillStyle = accent;
+        g.beginPath();
+        g.roundRect(topAvX, 12, topAvSize, topAvSize, 9);
+        g.fill();
+        g.fillStyle = "#fff";
+        g.font = "bold 13px Outfit";
+        g.textAlign = "center";
+        g.fillText("M", topAvX + topAvSize / 2, 33);
+
+        /* ── DASHBOARD HEADER ── */
+        const hY = 68;
+        const hPad = 24;
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 15px Cairo, sans-serif";
+        g.fillText(
+          isAr ? "مساء الخير، محمد 👋" : "Good evening, Mohamed 👋", /* taste-skill-ignore: 3D product screen */
+          isAr ? mainX + mainW - hPad : mainX + hPad,
+          hY + 10,
+        );
+        g.fillStyle = text2;
+        g.font = "11px Cairo, sans-serif";
+        g.fillText(
+          isAr
+            ? "السبت، ١٧ مايو ٢٠٢٦"
+            : "Saturday, May 17, 2026",
+          isAr ? mainX + mainW - hPad : mainX + hPad,
+          hY + 28,
+        );
+
+        // Header actions
+        const hBtnY = hY - 4;
+        const hBtnW = 68;
+        const hBtnH = 30;
+        const hBtnX1 = isAr ? mainX + hPad : mainX + mainW - hPad - hBtnW;
+        const hBtnX2 = isAr
+          ? mainX + hPad + hBtnW + 8
+          : mainX + mainW - hPad - hBtnW * 2 - 8;
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(hBtnX2, hBtnY, hBtnW, hBtnH, 8);
+        g.fill();
+        g.strokeStyle = border;
+        g.lineWidth = 1;
+        g.stroke();
+        g.fillStyle = text2;
+        g.font = "11px Cairo";
+        g.textAlign = "center";
+        g.fillText(isAr ? "تحديث" : "Refresh", hBtnX2 + hBtnW / 2, hBtnY + 19);
+
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(hBtnX1, hBtnY, hBtnW, hBtnH, 8);
+        g.fill();
+        g.strokeStyle = border;
+        g.stroke();
+        g.fillStyle = text2;
+        g.fillText(isAr ? "تقرير" : "Report", hBtnX1 + hBtnW / 2, hBtnY + 19);
+
+        /* ── KPI CARDS (StoreOS style with left border accent) ── */
+        const cardsY = 112;
+        const cardGap = 12;
+        const cardData = [
+          { icon: "📦", label: isAr ? "المنتجات" : "Products", val: "248", clr: "#3b82f6" }, /* taste-skill-ignore: 3D product screen */
+          { icon: "👥", label: isAr ? "العملاء" : "Customers", val: "156", clr: "#14b8a6" }, /* taste-skill-ignore: 3D product screen */
+          { icon: "🧾", label: isAr ? "طلبات اليوم" : "Today Orders", val: "12", clr: "#10b981" }, /* taste-skill-ignore: 3D product screen */
+          { icon: "💰", label: isAr ? "إيراد الشهر" : "Month Revenue", val: "$12K", clr: "#f59e0b" }, /* taste-skill-ignore: 3D product screen */
+          { icon: "⚠️", label: isAr ? "نواقص" : "Low Stock", val: "3", clr: "#f97316" }, /* taste-skill-ignore: 3D product screen */
+          { icon: "💸", label: isAr ? "ديون" : "Dues", val: "$3.2K", clr: "#ef4444" }, /* taste-skill-ignore: 3D product screen */
+        ];

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StoreOS · نظام إدارة المتاجر</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Outfit is the numeral face inside the product's own screen texture (3D scene) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Outfit:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ─── TOKENS ─── */
+      :root {
+        --accent: #e53935;
+        --accent2: #ff6b35;
+        --accent-rgb: 229, 57, 53;
+        --bg: #08080c;
+        --bg1: #0f0f16;
+        --bg2: #15151e;
+        --bg3: #1c1c27;
+        --text: #efedf6;
+        --text2: #a5a3b6;
+      }
+      [data-theme="light"] {
+        --bg: #e9e9f0;
+        --bg1: #e0e0e9;
+        --bg2: #d7d7e1;
+        --bg3: #c9c9d5;
+        --text: #101020;
+        --text2: #3c3c56;
+      }
+
+      .pal-red { --accent: #e53935; --accent2: #ff6b35; --accent-rgb: 229, 57, 53; }
+      .pal-blue { --accent: #2563eb; --accent2: #1d4ed8; --accent-rgb: 37, 99, 235; }
+      .pal-teal { --accent: #0d9488; --accent2: #0891b2; --accent-rgb: 13, 148, 136; }
+      .pal-amber { --accent: #d97706; --accent2: #ea580c; --accent-rgb: 217, 119, 6; }
+      .pal-rose { --accent: #e11d48; --accent2: #be185d; --accent-rgb: 225, 29, 72; }
+      .pal-emerald { --accent: #059669; --accent2: #0d9488; --accent-rgb: 5, 150, 105; }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: "Cairo", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      ::selection { background: var(--accent); color: #fff; }
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+      /* ─── NAV ─── */
+      nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2.5rem;
+        height: 72px;
+        background: rgba(8, 8, 12, 0.74);
+        transition: background 0.3s;
+      }
+      [data-theme="light"] nav { background: rgba(233, 233, 240, 0.85); }
+      .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+      .nav-logo-mark {
+        width: 34px; height: 34px;
+        background: var(--accent);
+        color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.05rem;
+      }
+      .nav-name { font-weight: 700; font-size: 1.05rem; }
+      .nav-right { display: flex; align-items: center; gap: 4px; }
+      .lang-btn {
+        background: none; border: none; cursor: pointer;
+        color: var(--text2);
+        font-family: inherit; font-weight: 700; font-size: 0.95rem;
+        padding: 10px 14px;
+        transition: color 0.2s;
+      }
+      .lang-btn:hover { color: var(--text); }
+      .pal-btn { padding: 7px; border: none; background: none; cursor: pointer; }
+      .pal-btn span { display: block; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); transition: background 0.3s; }
+      .nav-cta {
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700; font-size: 0.95rem;
+        padding: 10px 22px;
+        border-radius: 999px;
+        margin-inline-start: 6px;
+        transition: opacity 0.2s, transform 0.2s;
+      }
+      .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+      /* ─── THEME PANEL ─── */
+      .tp-wrap { position: relative; }
+      .tp {
+        position: absolute;
+        top: calc(100% + 14px);
+        inset-inline-end: 0;
+        width: 210px;
+        background: var(--bg2);
+        padding: 16px;
+        z-index: 200;
+        display: none;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+      }
+      .tp.open { display: block; }
+      .tp-lbl { font-size: 0.9rem; font-weight: 700; margin: 0.9rem 0 0.5rem; }
+      .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+      .mode-btn {
+        padding: 7px;
+        border: none;
+        background: var(--bg3);
+        color: var(--text2);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.9rem;
+        border-radius: 999px;
+        transition: color 0.2s, background-color 0.2s;
+      }
+      .mode-btn.active { background: var(--accent); color: #fff; }
+      .swatch-row { display: flex; flex-wrap: wrap; gap: 8px; }
+      .swatch { width: 22px; height: 22px; border: none; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+      .swatch:hover { transform: scale(1.15); }
+      .swatch.active { outline: 2px solid var(--text2); outline-offset: 3px; }

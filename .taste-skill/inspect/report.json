@@ -1,0 +1,998 @@
+{
+ "url": "D:\\2026\\store-website\\index.html",
+ "at": "2026-11-03T10:13:04.266Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 4,
+   "filled": [
+    0.61,
+    0.44,
+    0.57,
+    0.73
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 18,
+    "transitions": 8,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 3334,
+     "screens": 3.7,
+     "words": 356,
+     "img": 0,
+     "video": 0,
+     "canvas": 2,
+     "svg": 0,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 6,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 6,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "متجرك في كل مكان بنقرة واحدة",
+     "words": 6,
+     "chars": 28,
+     "lines": 3,
+     "size": 70.4,
+     "vw": 4.9,
+     "font": "Cairo",
+     "weight": 800,
+     "tracking": -0.015,
+     "leading": 1.16,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "right",
+     "widthRatio": 0.27,
+     "top": 205,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "متجرك في كل مكان بنقرة واحدة",
+     "words": 6,
+     "lines": 3,
+     "size": 70.4,
+     "font": "Cairo"
+    },
+    "headings": [
+     {
+      "text": "متجرك في كل مكان بنقرة واحدة",
+      "words": 6,
+      "chars": 28,
+      "lines": 3,
+      "size": 70.4,
+      "vw": 4.9,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.16,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.27,
+      "top": 205,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "كل ما تحتاجه في متجر واحد",
+      "words": 6,
+      "chars": 25,
+      "lines": 1,
+      "size": 43.2,
+      "vw": 3,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.74,
+      "top": 1097,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "تواصل معي",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 52.8,
+      "vw": 3.7,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 2835,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 3,
+     "over2Lines": 1,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 6,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Cairo",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      43,
+      53,
+      70
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Cairo",
+      "size": 16,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.7
+     },
+     "measureChars": 44,
+     "max": {
+      "size": 70.4,
+      "vw": 4.9,
+      "font": "Cairo",
+      "text": "متجرك في كل مكان"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.04,
+     "centerShare": 0.05,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#08080c",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 0.2,
+      "l": 0.04
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#0f0f16",
+       "top": 2699,
+       "hsl": {
+        "h": 240,
+        "s": 0.19,
+        "l": 0.07
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#a5a3b6",
+       "share": 0.69
+      },
+      {
+       "color": "#efedf6",
+       "share": 0.24
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.03
+      },
+      {
+       "color": "#ff8a80",
+       "share": 0.01
+      },
+      {
+       "color": "#34d399",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#b72e2a",
+      "hsl": {
+       "h": 2,
+       "s": 0.63,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 3,
+     "inHero": 2,
+     "radius": "pill",
+     "height": 52,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "تواصل معي",
+      "wissam.n.najjom@gmail.com"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 2,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 1262
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 1
+     },
+     {
+      "type": "canvas",
+      "ratio": 0.53
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 72,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "cairo"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 5,
+   "filled": [
+    0.8,
+    0.51,
+    0.66,
+    0.85,
+    0.54
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 18,
+    "transitions": 8,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 4283,
+     "screens": 4.2,
+     "words": 355,
+     "img": 0,
+     "video": 0,
+     "canvas": 2,
+     "svg": 0,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 6,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 6,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "متجرك في كل مكان بنقرة واحدة",
+     "words": 6,
+     "chars": 28,
+     "lines": 2,
+     "size": 61.4,
+     "vw": 8,
+     "font": "Cairo",
+     "weight": 800,
+     "tracking": -0.015,
+     "leading": 1.16,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.94,
+     "top": 112,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "متجرك في كل مكان بنقرة واحدة",
+     "words": 6,
+     "lines": 2,
+     "size": 61.4,
+     "font": "Cairo"
+    },
+    "headings": [
+     {
+      "text": "متجرك في كل مكان بنقرة واحدة",
+      "words": 6,
+      "chars": 28,
+      "lines": 2,
+      "size": 61.4,
+      "vw": 8,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.16,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 112,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "كل ما تحتاجه في متجر واحد",
+      "words": 6,
+      "chars": 25,
+      "lines": 1,
+      "size": 31.2,
+      "vw": 4.1,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 1201,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "تواصل معي",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 35.2,
+      "vw": 4.6,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 3805,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 6,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Cairo",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      31,
+      35,
+      61
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Cairo",
+      "size": 16,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.7
+     },
+     "measureChars": 63,
+     "max": {
+      "size": 61.4,
+      "vw": 8,
+      "font": "Cairo",
+      "text": "متجرك في كل مكان"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.04,
+     "centerShare": 0.09,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#08080c",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 0.2,
+      "l": 0.04
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#0f0f16",
+       "top": 1351,
+       "hsl": {
+        "h": 240,
+        "s": 0.19,
+        "l": 0.07
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#a5a3b6",
+       "share": 0.69
+      },
+      {
+       "color": "#efedf6",
+       "share": 0.24
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.03
+      },
+      {
+       "color": "#ff8a80",
+       "share": 0.01
+      },
+      {
+       "color": "#34d399",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#b72e2a",
+      "hsl": {
+       "h": 2,
+       "s": 0.63,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 3,
+     "inHero": 2,
+     "radius": "pill",
+     "height": 52,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "تواصل معي",
+      "wissam.n.najjom@gmail.com"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 2,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 1
+     },
+     {
+      "type": "canvas",
+      "ratio": 0.57
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 72,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "cairo"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 6,
+   "filled": [
+    0.73,
+    0.65,
+    0.75,
+    0.77,
+    0.78,
+    0.73
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 18,
+    "transitions": 8,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 4311,
+     "screens": 5.1,
+     "words": 355,
+     "img": 0,
+     "video": 0,
+     "canvas": 2,
+     "svg": 0,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 6,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "متجرك في كل مكان بنقرة واحدة",
+     "words": 6,
+     "chars": 28,
+     "lines": 2,
+     "size": 32,
+     "vw": 8.2,
+     "font": "Cairo",
+     "weight": 800,
+     "tracking": -0.015,
+     "leading": 1.16,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.89,
+     "top": 112,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "متجرك في كل مكان بنقرة واحدة",
+     "words": 6,
+     "lines": 2,
+     "size": 32,
+     "font": "Cairo"
+    },
+    "headings": [
+     {
+      "text": "متجرك في كل مكان بنقرة واحدة",
+      "words": 6,
+      "chars": 28,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.16,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 112,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "كل ما تحتاجه في متجر واحد",
+      "words": 6,
+      "chars": 25,
+      "lines": 2,
+      "size": 31.2,
+      "vw": 8,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.18,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 940,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "تواصل معي",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 35.2,
+      "vw": 9,
+      "font": "Cairo",
+      "weight": 800,
+      "tracking": -0.015,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 3767,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 6,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Cairo",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      31,
+      32,
+      35
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Cairo",
+      "size": 16,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.7
+     },
+     "measureChars": 39,
+     "max": {
+      "size": 35.2,
+      "vw": 9,
+      "font": "Cairo",
+      "text": "تواصل معي"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.04,
+     "centerShare": 0.09,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#08080c",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 0.2,
+      "l": 0.04
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#0f0f16",
+       "top": 1127,
+       "hsl": {
+        "h": 240,
+        "s": 0.19,
+        "l": 0.07
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#a5a3b6",
+       "share": 0.69
+      },
+      {
+       "color": "#efedf6",
+       "share": 0.24
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.03
+      },
+      {
+       "color": "#ff8a80",
+       "share": 0.01
+      },
+      {
+       "color": "#34d399",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#b72e2a",
+      "hsl": {
+       "h": 2,
+       "s": 0.63,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 3,
+     "inHero": 2,
+     "radius": "pill",
+     "height": 52,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "تواصل معي",
+      "wissam.n.najjom@gmail.com"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 2,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 6,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 1127
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 1
+     },
+     {
+      "type": "canvas",
+      "ratio": 0.39
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 72,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "cairo",
+     "outfit"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 1440,
+   "message": "1 headline(s) wrap past two lines at 1440px: \"متجرك في كل مكان بنقرة واحدة\" → 3 lines (6 words, 70.4px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "no-real-pictures",
+   "width": 1440,
+   "message": "Only 0 real photograph(s) or clip(s); the rest are interface fragments.",
+   "fix": "Add two or more real pictures of the customer's world from scripts/assets.mjs, not stock of people at laptops."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\2026\\store-website\\.taste-skill\\inspect\\desktop-fold.jpg",
+   "pages": [
+    "D:\\2026\\store-website\\.taste-skill\\inspect\\desktop-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\2026\\store-website\\.taste-skill\\inspect\\tablet-fold.jpg",
+   "pages": [
+    "D:\\2026\\store-website\\.taste-skill\\inspect\\tablet-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\2026\\store-website\\.taste-skill\\inspect\\mobile-fold.jpg",
+   "pages": [
+    "D:\\2026\\store-website\\.taste-skill\\inspect\\mobile-page-01.jpg"
+   ]
+  }
+ ]
+}

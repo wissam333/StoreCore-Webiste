@@ -1,0 +1,160 @@
+
+        /* ── LOW STOCK ALERT ── */
+        const alertY = colY + chartH + colGap;
+
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(lColX, alertY, lColW, alertH, 12);
+        g.fill();
+
+        // Low stock items
+        const lsItems = isAr
+          ? [
+              { n: "طابعة حرارية", s: "2", u: "قطعة" },
+              { n: "أكياس بلاستيك", s: "0", u: "حزمة" },
+              { n: "كرتون", s: "1", u: "حزمة" },
+            ]
+          : [
+              { n: "Thermal Printer", s: "2", u: "pcs" },
+              { n: "Plastic Bags", s: "0", u: "pk" },
+              { n: "Cardboard Boxes", s: "1", u: "pk" },
+            ];
+
+        const lsGap = 8, lsPad = 12;
+        const lsCardW = Math.floor((lColW - lsPad * 2 - lsGap * 2) / 3);
+        const lsH = 32;
+        lsItems.forEach(({ n, s, u }, i) => {
+          const lcx = isAr
+            ? lColX + lsPad + (2 - i) * (lsCardW + lsGap)
+            : lColX + lsPad + i * (lsCardW + lsGap);
+
+          g.fillStyle = bg3;
+          g.beginPath();
+          g.roundRect(lcx, alertY + 22, lsCardW, lsH, 6);
+          g.fill();
+
+          const sv = parseInt(s);
+          const cntW = 20;
+          const cntX = isAr ? lcx + 6 : lcx + lsCardW - 6 - cntW;
+          g.fillStyle = sv === 0 ? "#ef4444" : "#f59e0b";
+          g.beginPath();
+          g.roundRect(cntX, alertY + 26, cntW, 18, 9);
+          g.fill();
+          g.fillStyle = bg;
+          g.font = "bold 9px Outfit";
+          g.textAlign = "center";
+          g.fillText(s, cntX + cntW / 2, alertY + 39);
+
+          const txtX = isAr ? lcx + lsCardW - 10 : lcx + 10;
+          g.fillStyle = text;
+          g.font = "10px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(n, txtX, alertY + 39);
+        });
+
+        /* ── RECENT ORDERS ── */
+        const ordersY = alertY + alertH + colGap;
+        const ordersH = H - ordersY - hPad;
+        const ordersX = mainX + hPad;
+        const ordersW = mainW - hPad * 2;
+
+        g.fillStyle = bg2;
+        g.beginPath();
+        g.roundRect(ordersX, ordersY, ordersW, ordersH, 12);
+        g.fill();
+
+        const oIconX = isAr ? ordersX + ordersW - 18 - 26 : ordersX + 18;
+        g.fillStyle = "rgba(59,130,246,0.12)";
+        g.beginPath();
+        g.roundRect(oIconX, ordersY + 14, 26, 26, 7);
+        g.fill();
+        g.fillStyle = "#3b82f6";
+        g.textAlign = "center";
+        g.font = "12px sans-serif";
+        g.fillText("🧾", oIconX + 13, ordersY + 33); /* taste-skill-ignore: 3D product screen */
+
+        g.fillStyle = text;
+        g.textAlign = isAr ? "end" : "start";
+        g.font = "bold 13px Cairo, sans-serif";
+        g.fillText(
+          isAr ? "أحدث الطلبات" : "Recent Orders",
+          isAr ? ordersX + ordersW - 56 : ordersX + 56,
+          ordersY + 33,
+        );
+
+        g.fillStyle = border;
+        g.fillRect(ordersX + 16, ordersY + 46, ordersW - 32, 1);
+
+        const orderRows = isAr
+          ? [
+              { n: "أحمد علي", d: "10m", it: 3, a: "$120", s: "مكتمل", sc: "#10b981" },
+              { n: "محمد سالم", d: "1h", it: 1, a: "$85", s: "معلق", sc: "#f59e0b" },
+              { n: "خالد نور", d: "2h", it: 5, a: "$200", s: "مكتمل", sc: "#10b981" },
+              { n: "سارة حسن", d: "3h", it: 2, a: "$55", s: "قيد المعالجة", sc: "#06b6d4" },
+            ]
+          : [
+              { n: "Ahmed Ali", d: "10m", it: 3, a: "$120", s: "Paid", sc: "#10b981" },
+              { n: "Mohamed S.", d: "1h", it: 1, a: "$85", s: "Pending", sc: "#f59e0b" },
+              { n: "Khaled N.", d: "2h", it: 5, a: "$200", s: "Paid", sc: "#10b981" },
+              { n: "Sara H.", d: "3h", it: 2, a: "$55", s: "Processing", sc: "#06b6d4" },
+            ];
+
+        orderRows.forEach(({ n, d, it, a, s, sc }, i) => {
+          const oY = ordersY + 56 + i * 40;
+
+          const avCx = isAr ? ordersX + ordersW - 40 : ordersX + 40;
+          const nameX = isAr ? ordersX + ordersW - 60 : ordersX + 56;
+
+          // Avatar
+          g.fillStyle = bg3;
+          g.beginPath();
+          g.arc(avCx, oY + 11, 12, 0, Math.PI * 2);
+          g.fill();
+          g.fillStyle = text2;
+          g.font = "bold 9px Outfit";
+          g.textAlign = "center";
+          g.fillText(n[0], avCx, oY + 15);
+
+          // Name
+          g.fillStyle = text;
+          g.textAlign = isAr ? "end" : "start";
+          g.font = "bold 12px Cairo";
+          g.fillText(n, nameX, oY + 10);
+
+          // Date
+          g.fillStyle = text3;
+          g.font = "9px Cairo";
+          g.fillText(d, nameX, oY + 24);
+
+          // Item count
+          g.fillStyle = text2;
+          g.font = "10px Cairo";
+          g.textAlign = isAr ? "end" : "start";
+          g.fillText(`📦 ${it}`, nameX + (isAr ? -70 : 80), oY + 10); /* taste-skill-ignore: 3D product screen */
+
+          // Amount + Status badge at right edge
+          const bW2 = 56;
+          const bX = isAr ? ordersX + 16 : ordersX + ordersW - 16 - bW2;
+          g.fillStyle = `${sc}18`;
+          g.beginPath();
+          g.roundRect(bX, oY + 1, bW2, 20, 10);
+          g.fill();
+          g.fillStyle = sc;
+          g.font = "bold 9px Cairo";
+          g.textAlign = "center";
+          g.fillText(s, bX + bW2 / 2, oY + 15);
+
+          const aX = isAr ? bX + bW2 + 8 : bX - 8;
+          g.textAlign = isAr ? "start" : "end";
+          g.fillStyle = text;
+          g.font = "bold 13px Outfit";
+          g.fillText(a, aX, oY + 16);
+
+          if (i < orderRows.length - 1) {
+            g.fillStyle = border;
+            g.fillRect(ordersX + 20, oY + 32, ordersW - 40, 1);
+          }
+        });
+
+        return c;
+      }
